@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function CurrDate({ workingDays, setSelectedDate }) {
   const currentDate = new Date();
   const currentDay = currentDate.getDay();
@@ -15,6 +17,7 @@ function CurrDate({ workingDays, setSelectedDate }) {
       nextWorkingDays.push(formattedDate);
     }
   }
+  const [cday, setDay] = useState("");
   const monthIndex = {
     Jan: 1,
     Feb: 2,
@@ -34,7 +37,8 @@ function CurrDate({ workingDays, setSelectedDate }) {
     const date = day.split(" ");
     const newDate = date[1] + "-" + monthIndex[date[0]] + "-2024";
     setSelectedDate(newDate);
-    console.log(newDate);
+    setDay(day);
+    console.log(day);
   };
   //  console.log(nextWorkingDays);
   return (
@@ -42,7 +46,9 @@ function CurrDate({ workingDays, setSelectedDate }) {
       <ul className="flex flex-wrap gap-x-2">
         {nextWorkingDays.map((day) => (
           <button
-            className="border-2 border-black px-2 py-1 rounded-md text-slate-800 font-semibold uppercase"
+            className={`border-2 border-black px-2 py-1 rounded-md  font-semibold uppercase ${
+              cday == day ? "bg-gray-500 text-white" : "text-slate-800"
+            }  `}
             key={day}
             onClick={(e) => {
               handleClick(e, day);
