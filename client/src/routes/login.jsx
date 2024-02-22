@@ -60,8 +60,10 @@ export default function Login() {
       });
       const userType = response.data.user;
       if (userType === "tourist") {
+        cookies.set("user", "tourist", { path: "/" });
         navigate("/");
       } else if (userType === "freelancer") {
+        cookies.set("user", "freelancer", { path: "/" });
         navigate("/freelanceDashboard");
       } else {
         navigate("/register");

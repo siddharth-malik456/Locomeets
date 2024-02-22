@@ -31,7 +31,8 @@ export default function IsClient() {
       }
     );
     console.log(response);
-    navigate("/home");
+    cookies.set("user", "tourist", { path: "/" });
+    navigate("/");
   };
   return (
     <div>

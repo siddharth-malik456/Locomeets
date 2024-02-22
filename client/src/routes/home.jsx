@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Services from "../components/Services";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
@@ -15,7 +16,10 @@ export default function Home() {
   };
   return (
     <div>
-      <button onClick={handleClick}>inoast</button>
+      <div className="bg-[#903B4B] h-[74vh]">
+        <img src="/public/welcomeImg.png" alt="welcomeImg" className="w-full" />
+      </div>
+      <Services />
     </div>
   );
 }

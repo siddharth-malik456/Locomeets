@@ -29,6 +29,7 @@ export default function IsClient() {
         },
       }
     );
+    cookies.set("user", "freelancer", { path: "/" });
     navigate("/freelancerDashboard");
   };
   return (
