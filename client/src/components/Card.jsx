@@ -37,7 +37,7 @@ function Card({ props, service }) {
   return (
     <Link
       to={`/services/${service._id}`}
-      className="flex mx-auto w-[500px] justify-between bg-red-50 h-40 rounded-xl p-4 gap-x-4 border-2 border-slate-200 mt-8"
+      className="flex mx-auto w-[500px] justify-between bg-red-50 h-52 rounded-xl p-4 gap-x-4 border-2 border-slate-200 mt-8"
     >
       <img
         src={service.images[0][0]}
