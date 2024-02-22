@@ -7,6 +7,11 @@ import "./index.css";
 import Login from "./routes/login";
 import Home from "./routes/home";
 import Register from "./routes/register";
+import FreelanceProfile from "./routes/freelanceProfile";
+import Services from "./routes/services";
+import UserProfile from "./routes/userProfile";
+import FreelancerDashboard from "./routes/freelancerDashboard";
+import UserBookings from "./routes/userBookings";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +22,27 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+
+      {
+        path: "freelanceProfile/:uuid",
+        element: <FreelanceProfile />,
+      },
+      {
+        path: "services/:service_id",
+        element: <Services />,
+      },
+      {
+        path: "userprofile/:uuid",
+        element: <UserProfile />,
+      },
+      {
+        path: "freelanceDashboard/:uuid",
+        element: <FreelancerDashboard />,
+      },
+      {
+        path: "userBookings/:uuid",
+        element: <UserBookings />,
       },
     ],
   },
