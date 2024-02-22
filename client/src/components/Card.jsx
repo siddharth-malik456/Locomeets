@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Card({ props, service }) {
   //   const { _id, imgLink, serviceName, desc, rating, setProdID } = props;
-  const { _id, imgLink, serviceName, desc, rating, setProdID } = {
+  const { _id, imgLink, serviceName, desc, rating, setProductID } = {
     imgLink: "/public/bronzeBeading.png",
     serviceName: "Bronze Beading",
     desc: "Bronze sculptures and processes",
@@ -11,8 +11,8 @@ function Card({ props, service }) {
   };
   const navigate = useNavigate();
   function handleClick() {
-    setProdID(_id);
-    navigate("/serviceView");
+    navigate("services");
+    setProductID(_id);
   }
   // @services-->>  {
   //     location: { latitude: '0000', longitude: '0000' },
