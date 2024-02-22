@@ -55,10 +55,7 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bookings: {
-    type: [[Number]],
-    required: true,
-  },
+  bookings: [[{ type: Number }]],
   freelancer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Freelancers",
