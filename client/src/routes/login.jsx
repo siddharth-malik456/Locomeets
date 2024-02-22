@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 import { auth } from "../firebase/firebase-config.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import {
   signInWithGoogle,
   registerWithEmail,
@@ -10,6 +13,7 @@ import {
 const cookies = new Cookies();
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authState, setAuthState] = useState(
@@ -47,16 +51,38 @@ export default function Login() {
       });
   };
 
-  const handleEmailRegister = () => {
-    registerWithEmail(email, password);
+  const redirectUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/checkUser", {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      });
+      const userType = response.data.user;
+      if (userType === "tourist") {
+        navigate("/home");
+      } else if (userType === "freelancer") {
+        navigate("/freelanceDashboard");
+      } else {
+        navigate("/register");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleEmailRegister = async () => {
+    await registerWithEmail(email, password);
+    redirectUser();
   };
 
-  const handleEmailSignIn = () => {
-    signInWithEmail(email, password);
+  const handleEmailSignIn = async () => {
+    await signInWithEmail(email, password);
+    redirectUser();
   };
 
-  const handleGoogleLogin = () => {
-    signInWithGoogle();
+  const handleGoogleLogin = async () => {
+    await signInWithGoogle();
+    redirectUser();
   };
   return (
     <div className="flex justify-center items-center bg-slate-200 h-screen">

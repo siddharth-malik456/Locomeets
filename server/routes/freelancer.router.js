@@ -30,7 +30,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", middleware.decodeToken, async (req, res) => {
   try {
     const UUID = req.user.uid;
-    const { name, email, nationality, phoneNumber, profilePicture } = req.body;
+    const email = req.user.email;
+    const { name, nationality, phoneNumber, profilePicture } = req.body;
     const response = await Freelancer.create({
       UUID,
       name,
