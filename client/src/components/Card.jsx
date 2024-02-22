@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Card(props) {
+function Card({ props, service }) {
   //   const { _id, imgLink, serviceName, desc, rating, setProdID } = props;
   const { _id, imgLink, serviceName, desc, rating, setProdID } = {
     imgLink: "/public/bronzeBeading.png",
@@ -14,13 +14,40 @@ function Card(props) {
     setProdID(_id);
     navigate("/serviceView");
   }
+  // @services-->>  {
+  //     location: { latitude: '0000', longitude: '0000' },
+  //     _id: new ObjectId('65d782682b963ee2d16cfff2'),
+  //     name: 'Nayan',
+  //     heading: 'This is a heading',
+  //     description: 'A description',
+  //     images: [ [Array] ],
+  //     workingDays: [
+  //       1, 0, 1, 0,
+  //       0, 1, 1
+  //     ],
+  //     price: 123,
+  //     city: 'mumbai',
+  //     state: 'maharastra',
+  //     category: 'art',
+  //     bookings: [ [Array], [Array] ],
+  //     __v: 0
+  //   }
+  // ]
+  console.log(service.images[0][0]);
   return (
-    <div className="flex justify-between bg-red-50 h-40 rounded-xl p-4 gap-x-4 border-2 border-slate-200 mt-8">
-      <img src={imgLink} alt={serviceName} className="h-full rounded-lg" />
+    <Link
+      to={`/services/${service._id}`}
+      className="flex mx-auto w-[500px] justify-between bg-red-50 h-40 rounded-xl p-4 gap-x-4 border-2 border-slate-200 mt-8"
+    >
+      <img
+        src={service.images[0][0]}
+        alt={service.name}
+        className="h-full w-[200px] rounded-lg"
+      />
       <div className="flex flex-col justify-between">
         <div>
           <h1 className="text-xl font-medium">{serviceName}</h1>
-          <p>{desc}</p>
+          <p>{service.description}</p>
         </div>
         <div className="flex justify-between">
           <p>Rating: {rating}/5</p>
@@ -29,7 +56,7 @@ function Card(props) {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

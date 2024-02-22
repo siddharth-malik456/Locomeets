@@ -13,6 +13,10 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  longDescription: {
+    type: String,
+    required: true,
+  },
   images: [
     {
       type: [String],
