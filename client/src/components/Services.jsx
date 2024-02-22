@@ -1,6 +1,8 @@
 import CardContainer from "./CardContainer";
 
-function Services({ location, setLocation, setProductID }) {
+
+function Services({ location, setLocation, allServices }) {
+
   function handleLocate() {
     // implement this function later
   }
@@ -33,7 +35,9 @@ function Services({ location, setLocation, setProductID }) {
           </button>
         </div>
       </div>
-      <CardContainer setProductID={setProductID} />
+
+      <CardContainer allServices={allServices} />
+
     </div>
   );
 }
