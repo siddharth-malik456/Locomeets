@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 import { auth } from "../firebase/firebase-config.js";
+import { useNavigate } from "react-router-dom";
 import {
   signInWithGoogle,
   registerWithEmail,
@@ -10,6 +11,7 @@ import {
 const cookies = new Cookies();
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [authState, setAuthState] = useState(
@@ -106,6 +108,14 @@ export default function Login() {
           >
             <img src="/google_logo.png" alt="" className="w-8" />
             Continue with Google
+          </button>
+          <br />
+          <p className="text-slate-400 text-center mb-4">OR</p>
+          <button
+            className="flex gap-8 border border-black px-4 py-2 w-full items-center rounded-md bg-[#903B4B] text-white justify-center mt-4"
+            onClick={() => navigate(-1)}
+          >
+            Go Back
           </button>
         </div>
       </div>
