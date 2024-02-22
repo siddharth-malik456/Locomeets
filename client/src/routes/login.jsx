@@ -60,7 +60,7 @@ export default function Login() {
       });
       const userType = response.data.user;
       if (userType === "tourist") {
-        navigate("/home");
+        navigate("/");
       } else if (userType === "freelancer") {
         navigate("/freelanceDashboard");
       } else {
