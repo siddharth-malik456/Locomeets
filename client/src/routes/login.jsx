@@ -28,10 +28,12 @@ export default function Login() {
         cookies.set("auth", "true", { path: "/" });
         user.getIdToken().then((userToken) => {
           setToken(userToken);
+          cookies.set("uuid", user.uid, { path: "/" });
           cookies.set("token", userToken, { path: "/" });
         });
       } else {
         setAuthState(false);
+        cookies.remove("user", { path: "/" });
         cookies.remove("auth", { path: "/" });
         cookies.remove("token", { path: "/" });
       }
@@ -43,6 +45,7 @@ export default function Login() {
       .signOut()
       .then(() => {
         setAuthState(false);
+        cookies.remove("user", { path: "/" });
         cookies.remove("auth", { path: "/" });
         cookies.remove("token", { path: "/" });
       })

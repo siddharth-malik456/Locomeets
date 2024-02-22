@@ -12,6 +12,7 @@ import Services from "./routes/services";
 import UserProfile from "./routes/userProfile";
 import FreelancerDashboard from "./routes/freelancerDashboard";
 import UserBookings from "./routes/userBookings";
+import CreateService from "./routes/createService";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "userBookings/:uuid",
         element: <UserBookings />,
+      },
+      {
+        path: "services/create",
+        element: <CreateService />,
       },
     ],
   },
