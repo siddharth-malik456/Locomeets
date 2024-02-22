@@ -40,9 +40,9 @@ router.post("/", async (req, res) => {
     console.log(req.body);
     const { tourist_uid, service, bookedSlot, date } = req.body;
     const touristData = await Tourist.find({ UUID: tourist_uid });
-    console.log(touristData[0]);
+    console.log(touristData);
     const touristId = touristData[0]._id;
-    console.log(touristId);
+
     const newBooking = new Booking({
       tourist: touristId,
       service,
@@ -52,6 +52,7 @@ router.post("/", async (req, res) => {
     await newBooking.save();
     res.status(201).json(newBooking);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ message: err.message });
   }
 });

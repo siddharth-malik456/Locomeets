@@ -1,80 +1,67 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, redirect, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import CurrDate from "../components/CurrDate";
 import CurrTime from "../components/CurrTime";
 import ImageSlider from "../components/ImageSlider";
+import Cookies from "universal-cookie";
 const baseURL = "http://localhost:3000/";
 
 const Services = () => {
+  const cookies = new Cookies();
+  const uuid = cookies.get("uuid");
   const navigate = useNavigate();
   const [services, setServices] = useState(null);
-  // const {
-  //   // location,
-  //   _id,
-  //   name,
-  //   heading,
-  //   description,
-  //   images,
-  //   workingDays,
-  //   price,
-  //   city,
-  //   state,
-  //   category,
-  //   bookings,
-  //   rating,
-  // } = {
-  //   // location: { latitude: "0000", longitude: "0000" },
-  //   // _id: new ObjectId("65d782682b963ee2d16cfff2"),
-  //   _id: "65d782682b963ee2d16cfff2",
-  //   name: "Aditya Jindal",
-  //   heading: "Bronze Beading",
-  //   description: "Bronze sculptures and processes",
-  //   images: [["/public/bronzeBeading.png"]],
-  //   workingDays: [1, 0, 1, 0, 0, 1, 1],
-  //   price: 123,
-  //   city: "mumbai",
-  //   state: "maharastra",
-  //   category: "art",
-  //   bookings: [
-  //     [9, 10],
-  //     [12, 13],
-  //   ],
-  //   rating: 4.3,
-  //   __v: 0,
-  // };
+  const [booked, setBookings] = useState([]);
+  const [isBooked, setIsBooked] = useState(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+
   const routeParams = useParams();
-  // @services-->>  {
-  //     location: { latitude: '0000', longitude: '0000' },
-  //     _id: new ObjectId('65d782682b963ee2d16cfff2'),
-  //     name: 'Nayan',
-  //     heading: 'This is a heading',
-  //     description: 'A description',
-  //     images: [ [Array] ],
-  //     workingDays: [
-  //       1, 0, 1, 0,
-  //       0, 1, 1
-  //     ],
-  //     price: 123,
-  //     city: 'mumbai',
-  //     state: 'maharastra',
-  //     category: 'art',
-  //     bookings: [ [Array], [Array] ],
-  //     __v: 0
-  //   }
-  // ]
 
   const [SelectedDate, setSelectedDate] = useState(null);
+  const handleBooking = async (e) => {
+    console.log(uuid);
+
+    const data = {
+      tourist_uid: uuid,
+      service: routeParams.service_id,
+      bookedSlot: selectedTimeSlot,
+      date: SelectedDate,
+    };
+    await axios.post("http://localhost:3000/booking", data);
+    navigate("/");
+  };
   useEffect(() => {
     axios
       .get(baseURL + `services/${routeParams.service_id}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setServices(response.data[0]);
       });
     return;
   }, []);
+
+  useEffect(() => {
+    axios.get(baseURL + `booking/`).then((response) => {
+      //console.log(response.data);
+      const bookings = response.data;
+      bookings.forEach((booking) => {
+        services?.bookings.forEach((element) => {
+          console.log("dsfsfd");
+          console.log(element);
+          console.log("dsfsfd");
+
+          if (booking.bookedSlot[0] == element[0]) {
+            setBookings([...bookings, booking.bookedSlot]);
+          }
+        });
+      });
+    });
+    return;
+  }, [services]);
+  console.log("----------");
+  console.log(booked[1]);
   return (
     <div className="flex flex-col bg-red-100 pl-20 pr-20 py-10 min-h-screen items-between gap-y-10">
       <p className="capitalize font-medium text-slate-600">
@@ -113,9 +100,20 @@ const Services = () => {
           <h2 className="text-xl font-semibold text-slate-700">
             Select time slots:
           </h2>
-          <CurrTime bookings={services?.bookings} />
+          <CurrTime
+            selected={selectedTimeSlot}
+            setSelected={setSelectedTimeSlot}
+            booked={booked[1]}
+            bookings={services?.bookings}
+          />
         </div>
       </div>
+      <button
+        onClick={handleBooking}
+        className="border-2 max-w-[240px] mx-auto border-black px-2 py-1 rounded-md text-slate-800 font-semibold uppercase"
+      >
+        BOOK
+      </button>
     </div>
   );
 };
