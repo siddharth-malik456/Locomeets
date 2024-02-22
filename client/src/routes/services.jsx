@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import CurrDate from "../components/CurrDate";
 import CurrTime from "../components/CurrTime";
+import ImageSlider from "../components/ImageSlider";
 const baseURL = "http://localhost:3000/";
 
 const Services = () => {
@@ -76,13 +77,12 @@ const Services = () => {
     <div className="flex flex-col bg-red-100 pl-20 pr-20 py-10 min-h-screen items-between gap-y-10">
       <p className="capitalize font-medium text-slate-600">
         <Link to="/">Home</Link>
-        <Link onClick={() => navigate(-1)}> {services?.city}</Link> /{" "}
+        <Link onClick={() => navigate(-1)}>/ {services?.city}</Link> /{" "}
         <span className="font-bold">{services?.category}</span>
       </p>
       <div className="flex justify-around ">
-        <div className="max-w-[30%]">
-          {/* implement Images component later */}
-          <img src={services?.images[0][0]} alt="error loading image" />
+        <div className="w-[30vw]">
+          <ImageSlider images={services?.images} />
         </div>
         <div className="flex flex-col gap-y-3">
           <p className="capitalize text-slate-600 font-semibold tracking-wide">
