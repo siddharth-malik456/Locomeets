@@ -4,6 +4,7 @@ const freelancerModel = require("../models/freelancer.model");
 const router = express.Router();
 
 // -- -- READ ALL -- --
+
 router.get("/", async (req, res) => {
   try {
     const data = await Service.find({})
@@ -19,7 +20,22 @@ router.get("/", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+router.get("/:id", async (req, res) => {
+  try {
+    console.log("data");
+    const data = await Service.find({ _id: req.params.id })
+      //.populate("Reviews")
+      //  .populate("Freelancers")
+      .exec();
 
+    console.log(data);
+
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 // -- -- CREATE -- --
 router.post("/", async (req, res) => {
   try {
@@ -48,6 +64,7 @@ router.post("/", async (req, res) => {
       city: req.body.city,
       state: req.body.state,
       category: req.body.category,
+      bookings: req.body.bookings,
       // freelancer: freeLancerId,
     });
     res.send(response);
