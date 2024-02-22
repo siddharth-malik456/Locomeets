@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Card from "./Card";
 
-function CardContainer() {
-  const [productID, setProductID] = useState(null);
+function CardContainer({ setProductID, productID }) {
+  // const [productID, setProductID] = useState(null);
   return (
     <div className="flex flex-wrap gap-x-8 pl-20 pr-20">
       {/* <ul>
