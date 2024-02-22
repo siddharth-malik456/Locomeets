@@ -37,9 +37,12 @@ router.get("/:id", getBooking, (req, res) => {
 // -- -- CREATE -- --
 router.post("/", async (req, res) => {
   try {
-    const { tourist, service, bookedSlot, date } = req.body;
-    const touristData = Tourist.find({ _id: tourist });
-    const touristId = touristData._id;
+    console.log(req.body);
+    const { tourist_uid, service, bookedSlot, date } = req.body;
+    const touristData = await Tourist.find({ UUID: tourist_uid });
+    console.log(touristData[0]);
+    const touristId = touristData[0]._id;
+    console.log(touristId);
     const newBooking = new Booking({
       tourist: touristId,
       service,
