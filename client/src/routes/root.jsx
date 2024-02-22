@@ -4,9 +4,8 @@ import Header from "../components/Header";
 export default function Root() {
   return (
     <>
-      {/* all the other elements */}
+      <Header />
       <div id="detail">
-        <Header />
         <Outlet />
       </div>
     </>
