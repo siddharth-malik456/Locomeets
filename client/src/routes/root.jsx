@@ -1,7 +1,13 @@
+import { Outlet } from "react-router-dom";
+
 export default function Root() {
   return (
     <>
-      <p>Welcome to the homepage</p>
+      {/* all the other elements */}
+      <div id="detail">
+        <p>Hello</p>
+        <Outlet />
+      </div>
     </>
   );
 }
