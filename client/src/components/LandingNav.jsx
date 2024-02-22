@@ -20,7 +20,7 @@ function LandingNav() {
           <li>
             <Link
               to="/freelanceDashboard"
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Dashboard
             </Link>
@@ -28,7 +28,7 @@ function LandingNav() {
           <li>
             <Link
               to="/userBookings"
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Bookings
             </Link>
@@ -36,7 +36,7 @@ function LandingNav() {
           <li>
             <Link
               to="/services/create"
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Create Service
             </Link>
@@ -44,7 +44,7 @@ function LandingNav() {
           <li>
             <Link
               to={`/userProfile/${cookies.get("uuid")}`}
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Profile
             </Link>
@@ -52,7 +52,7 @@ function LandingNav() {
           <li>
             <Link
               onClick={handleLogout}
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Logout
             </Link>
@@ -67,7 +67,7 @@ function LandingNav() {
           <li>
             <Link
               to="/login"
-              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
+              className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568] "
             >
               Login/Create account
             </Link>

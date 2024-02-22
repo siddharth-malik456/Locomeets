@@ -82,7 +82,7 @@ const Services = () => {
         <Link onClick={() => navigate(-1)}>/ {services?.city}</Link> /{" "}
         <span className="font-bold">{services?.category}</span>
       </p>
-      <div className="flex justify-around ">
+      <div className="flex justify-around gap-32">
         <div className="w-[30vw]">
           <ImageSlider images={services?.images} />
         </div>

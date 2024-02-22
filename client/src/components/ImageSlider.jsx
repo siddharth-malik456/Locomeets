@@ -10,7 +10,7 @@ function ImageSlide({ images }) {
     console.log(activeIndex);
   }
   return (
-    <div className="flex items-center min-h-full min-w-full">
+    <div className="flex items-center min-h-full min-w-full gap-4">
       <button
         onClick={handlePrev}
         className="rounded-full bg-black text-white px-2"
