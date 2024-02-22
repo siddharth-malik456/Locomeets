@@ -63,6 +63,8 @@ const Services = () => {
   //     __v: 0
   //   }
   // ]
+
+  const [SelectedDate, setSelectedDate] = useState(null);
   useEffect(() => {
     axios
       .get(baseURL + `services/${routeParams.service_id}`)
@@ -104,7 +106,10 @@ const Services = () => {
           <h2 className="text-xl font-semibold text-slate-700">
             What time best works for you?
           </h2>
-          <CurrDate workingDays={services?.workingDays} />
+          <CurrDate
+            setSelectedDate={setSelectedDate}
+            workingDays={services?.workingDays}
+          />
           <h2 className="text-xl font-semibold text-slate-700">
             Select time slots:
           </h2>

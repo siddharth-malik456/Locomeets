@@ -38,7 +38,7 @@ async function main() {
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(Middleware.decodeToken);
+//app.use(Middleware.decodeToken);
 
 // -- -- ROUTES -- --
 app.use("/services", serviceRoutes);
