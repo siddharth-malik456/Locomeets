@@ -4,9 +4,6 @@ import axios from "axios";
 import Services from "../components/Services";
 import Cookies from "universal-cookie";
 
-function Home() {
-  const [productID, setProductID] = useState(null);
-
 const cookies = new Cookies();
 export default function Home() {
   const baseURL = "http://localhost:3000/";
@@ -35,7 +32,6 @@ export default function Home() {
       </div>
 
       <Services allServices={allServices} />
-
     </div>
   );
 }
