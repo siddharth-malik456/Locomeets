@@ -43,7 +43,7 @@ function LandingNav() {
           </li>
           <li>
             <Link
-              to="/userprofile"
+              to={`/userProfile/${cookies.get("uuid")}`}
               className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
             >
               Profile

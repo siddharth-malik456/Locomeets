@@ -17,8 +17,8 @@ router.get("/", async (req, res) => {
 // -- -- READ ONE -- --
 router.get("/:id", async (req, res) => {
   try {
-    const id = req.params;
-    const data = await Tourist.findById(id);
+    const id = req.params.id;
+    const data = await Tourist.findOne({ UUID: id });
     res.send(data);
   } catch (error) {
     console.error(error);
