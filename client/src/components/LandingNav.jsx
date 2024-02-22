@@ -16,7 +16,7 @@ function LandingNav() {
   if (loggedIn) {
     return (
       <nav>
-        <ul className="flex gap-x-5">
+        <ul className="flex gap-x-5 items-center">
           <li>
             <Link
               to="/freelanceDashboard"
@@ -50,12 +50,12 @@ function LandingNav() {
             </Link>
           </li>
           <li>
-            <button
+            <Link
               onClick={handleLogout}
               className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#9DD3FF] from-[#1065F4] "
             >
               Logout
-            </button>
+            </Link>
           </li>
         </ul>
       </nav>
