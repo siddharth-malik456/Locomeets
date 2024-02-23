@@ -1,37 +1,55 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "universal-cookie";
+import React from "react";
 
 const cookies = new Cookies();
 const FreelancerDashboard = () => {
   const [bookings, setBookings] = useState([]);
-
+  const [touristName, setTouristName] = useState("");
+  const cookies = new Cookies();
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/service/${id}`);
-        setBookings(response.data);
-      } catch (error) {
-        console.error("Error fetching bookings:", error);
-      }
-    };
-    fetchBookings();
-    return () => {
-      // Add cleanup logic here if needed
-    };
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+    console.log("http://localhost:3000/booking/service/" + cookies.get("uuid"));
+    axios
+      .get("http://localhost:3000/booking/freelancer/" + cookies.get("uuid"))
+      .then((data) => {
+        console.log(data.data);
+        setBookings(data.data);
+      });
+  }, []);
 
   return (
     <div>
-      <h1>Freelancer Dashboard</h1>
-      <h2>All Bookings</h2>
+      <h1 className="w-full text-center text-6xl ">Bookings</h1>
       <ul>
-        {bookings.map((booking, index) => (
-          <li key={index}>
-            {/* Render booking details here */}
-            {/* Example: Booking ID - {booking.id}, Service ID - {booking.service} */}
-          </li>
-        ))}
+        <div className="flex flex-wrap gap-x-8 pl-20 pr-20">
+          {bookings.map((booking) => {
+            return (
+              <div
+                className="flex mx-auto w-[1000px] justify-between bg-red-50 h-52 rounded-xl p-4 gap-x-4 border-2 border-slate-200 mt-8"
+                key={booking._id}
+              >
+                <div>
+                  <p>Tourist name : </p>
+                  <p>{booking.tourist.name}</p>
+                </div>
+                <div>
+                  <p>Tourist email: </p>
+                  <p>{booking.tourist.email}</p>
+                </div>
+                <div>
+                  <p>Service Name: </p>
+                  <p>{booking.service.name}</p>
+                </div>
+                <div>
+                  <p>Booked Slot: </p>
+                  <p>{booking.bookedSlot.join(" to ")}</p>
+                </div>
+                <div className="">
+                  <p>Date: </p>
+                  <p>{booking.date}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </ul>
     </div>
   );

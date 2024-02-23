@@ -53,7 +53,6 @@ app.get("/checkUser", middleware.decodeToken, async (req, res) => {
     const UUID = req.user.uid;
     const isUserTourist = await Tourist.find({ UUID: UUID });
     const isUserFreelancer = await Freelancer.find({ UUID: UUID });
-
     if (isUserTourist.length > 0) {
       res.send({ user: "tourist" });
     } else if (isUserFreelancer.length > 0) {
