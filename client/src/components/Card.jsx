@@ -46,7 +46,7 @@ function Card({ props, service }) {
       />
       <div className="flex flex-col justify-between">
         <div>
-          <h1 className="text-xl font-medium">{serviceName}</h1>
+          <h1 className="text-xl font-medium">{service.name}</h1>
           <p>{service.description}</p>
         </div>
         <div className="flex justify-between">

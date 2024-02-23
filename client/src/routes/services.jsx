@@ -73,47 +73,49 @@ const Services = () => {
         <div className="w-[30vw]">
           <ImageSlider images={services?.images} />
         </div>
-        <div className="flex flex-col gap-y-3">
-          <p className="capitalize text-slate-600 font-semibold tracking-wide">
-            {services?.category}
-          </p>
-          <h1 className="text-5xl font-semibold text-slate-700">
-            {services?.name}
-          </h1>
-          <h2 className="text-3xl font-semibold text-slate-700">
-            {services?.heading}
-          </h2>
-          <p className="text-slate-600 italic font-medium">
-            Rating: {services?.rating}/5
-          </p>
-          <p className="text-xl font-semibold text-slate-700">
-            {services?.description}
-          </p>
-          {/* <p>{long_description}</p> */}
-          <h2 className="text-xl font-semibold text-slate-700">
-            What time best works for you?
-          </h2>
-          <CurrDate
-            setSelectedDate={setSelectedDate}
-            workingDays={services?.workingDays}
-          />
-          <h2 className="text-xl font-semibold text-slate-700">
-            Select time slots:
-          </h2>
-          <CurrTime
-            selected={selectedTimeSlot}
-            setSelected={setSelectedTimeSlot}
-            booked={booked[1]}
-            bookings={services?.bookings}
-          />
+        <div className="flex flex-col items-center gap-y-8">
+          <div className="flex flex-col gap-y-3">
+            <p className="capitalize text-slate-600 font-semibold tracking-wide">
+              {services?.category}
+            </p>
+            <h1 className="text-5xl font-semibold text-slate-700">
+              {services?.name}
+            </h1>
+            <h2 className="text-3xl font-semibold text-slate-700">
+              {services?.heading}
+            </h2>
+            <p className="text-slate-600 italic font-medium">
+              Rating: {services?.rating}/5
+            </p>
+            <p className="text-xl font-semibold text-slate-700">
+              {services?.description}
+            </p>
+            {/* <p>{long_description}</p> */}
+            <h2 className="text-xl font-semibold text-slate-700">
+              What time best works for you?
+            </h2>
+            <CurrDate
+              setSelectedDate={setSelectedDate}
+              workingDays={services?.workingDays}
+            />
+            <h2 className="text-xl font-semibold text-slate-700">
+              Select time slots:
+            </h2>
+            <CurrTime
+              selected={selectedTimeSlot}
+              setSelected={setSelectedTimeSlot}
+              booked={booked[1]}
+              bookings={services?.bookings}
+            />
+          </div>
+          <button
+            onClick={handleBooking}
+            className="border-2 max-w-[240px] mx-auto  px-8 py-2 rounded-md text-slate-800 font-semibold uppercase bg-[#903B4B] text-white"
+          >
+            BOOK
+          </button>
         </div>
       </div>
-      <button
-        onClick={handleBooking}
-        className="border-2 max-w-[240px] mx-auto border-black px-2 py-1 rounded-md text-slate-800 font-semibold uppercase"
-      >
-        BOOK
-      </button>
     </div>
   );
 };

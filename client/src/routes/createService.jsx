@@ -25,10 +25,7 @@ export default function CreateService() {
 
   const handleAddBooking = useCallback(() => {
     if (startHour && endHour) {
-      const newBooking = {
-        startTime: startHour,
-        endTime: endHour,
-      };
+      const newBooking = [startHour, endHour];
       setBookings((prevBookings) => [...prevBookings, newBooking]);
       setStartHour("");
       setEndHour("");
@@ -47,6 +44,7 @@ export default function CreateService() {
       const response = await axios.post(`http://localhost:3000/services/`, {
         ...formData,
         bookings,
+        workingDays: [0, 1, 0, 0, 1, 1, 1],
       });
       console.log(response);
     } catch (error) {
@@ -174,7 +172,7 @@ export default function CreateService() {
       <ul>
         {bookings.map((booking, index) => (
           <li key={index}>
-            {booking.startTime} - {booking.endTime}
+            {booking[0]} - {booking[1]}
           </li>
         ))}
       </ul>
