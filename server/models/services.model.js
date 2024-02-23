@@ -13,10 +13,10 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  longDescription: {
-    type: String,
-    required: true,
-  },
+  // longDescription: {
+  //   type: String,
+  //   required: true,
+  // },
   images: [
     {
       type: [String],
@@ -60,9 +60,9 @@ const serviceSchema = new mongoose.Schema({
     required: true,
   },
   bookings: [[{ type: Number }]],
-  freelancer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Freelancers",
+  freelancerUUID: {
+    type: String,
+    required: true,
   },
 });
 
