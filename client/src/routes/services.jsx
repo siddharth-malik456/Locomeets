@@ -28,6 +28,7 @@ const Services = () => {
       service: routeParams.service_id,
       bookedSlot: selectedTimeSlot,
       date: SelectedDate,
+      freelancerUUID: services?.freelancerUUID,
     };
     await axios.post("http://localhost:3000/booking", data);
     navigate("/");
@@ -48,10 +49,6 @@ const Services = () => {
       const bookings = response.data;
       bookings.forEach((booking) => {
         services?.bookings.forEach((element) => {
-          console.log("dsfsfd");
-          console.log(element);
-          console.log("dsfsfd");
-
           if (booking.bookedSlot[0] == element[0]) {
             setBookings([...bookings, booking.bookedSlot]);
           }
@@ -60,8 +57,7 @@ const Services = () => {
     });
     return;
   }, [services]);
-  console.log("----------");
-  console.log(booked[1]);
+
   return (
     <div className="flex flex-col bg-red-100 pl-20 pr-20 py-10 min-h-screen items-between gap-y-10">
       <p className="capitalize font-medium text-slate-600">
@@ -101,6 +97,8 @@ const Services = () => {
             Select time slots:
           </h2>
           <CurrTime
+            id={routeParams.service_id}
+            SelectedDate={SelectedDate}
             selected={selectedTimeSlot}
             setSelected={setSelectedTimeSlot}
             booked={booked[1]}

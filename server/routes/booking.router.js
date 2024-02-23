@@ -111,5 +111,16 @@ router.get("/service/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+// -- -- GET ALL BOOKINGS OF A Date -- --
 
+router.get("/date/:date", async (req, res) => {
+  try {
+    console.log("/service/:date");
+    console.log(req.body.id);
+    const bookings = await Booking.find({ date: req.params.date }); //.populate("tourist service").exec();
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 module.exports = router;
