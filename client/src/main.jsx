@@ -40,11 +40,11 @@ const router = createBrowserRouter([
         element: <UserProfile />,
       },
       {
-        path: "freelanceDashboard/:uuid",
+        path: "freelanceDashboard/",
         element: <FreelancerDashboard />,
       },
       {
-        path: "userBookings/:uuid",
+        path: "userBookings/",
         element: <UserBookings />,
       },
       {

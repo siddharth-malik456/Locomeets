@@ -13,7 +13,17 @@ router.get("/", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
-
+// -- -- READ ONE with id -- --
+router.get("/id/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = await Tourist.findOne({ _id: id });
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 // -- -- READ ONE -- --
 router.get("/:id", async (req, res) => {
   try {

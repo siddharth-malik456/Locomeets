@@ -38,7 +38,7 @@ router.get("/:id", getBooking, (req, res) => {
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
-    const { tourist_uid, service, bookedSlot, date } = req.body;
+    const { tourist_uid, service, bookedSlot, date, freelancerUUID } = req.body;
     const touristData = await Tourist.find({ UUID: tourist_uid });
     console.log(touristData);
     const touristId = touristData[0]._id;
@@ -48,6 +48,7 @@ router.post("/", async (req, res) => {
       service,
       bookedSlot,
       date,
+      freelancerUUID,
     });
     await newBooking.save();
     res.status(201).json(newBooking);
@@ -82,7 +83,7 @@ router.patch("/:id", getBooking, async (req, res) => {
 // -- -- DELETE -- --
 router.delete("/:id", getBooking, async (req, res) => {
   try {
-    await res.booking.remove();
+    await Booking.findByIdAndDelete(req.params.id);
     res.json({ message: "Booking deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -94,7 +95,19 @@ router.get("/tourist/:uuid", async (req, res) => {
   try {
     const touristData = Tourist.find({ _id: req.params.uuid });
     const touristId = touristData._id;
-    const bookings = await Booking.find({ tourist: touristId }); //.populate("tourist service").exec();
+    const bookings = await Booking.find({ tourist: touristId })
+      .populate("tourist service")
+      .exec();
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+router.get("/freelancer/:uuid", async (req, res) => {
+  try {
+    const bookings = await Booking.find({ freelancerUUID: req.params.uuid })
+      .populate("tourist service")
+      .exec();
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ message: err.message });
