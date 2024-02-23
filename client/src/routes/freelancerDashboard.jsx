@@ -1,10 +1,11 @@
 import React from "react";
-
+import Cookies from "universal-cookie";
+import axios from "axios";
+import { useEffect, useState } from "react";
 const cookies = new Cookies();
 const FreelancerDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [touristName, setTouristName] = useState("");
-  const cookies = new Cookies();
   useEffect(() => {
     console.log("http://localhost:3000/booking/service/" + cookies.get("uuid"));
     axios
