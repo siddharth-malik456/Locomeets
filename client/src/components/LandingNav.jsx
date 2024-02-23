@@ -19,7 +19,7 @@ function LandingNav() {
         <ul className="flex gap-x-5 items-center">
           <li>
             <Link
-              to="/freelanceDashboard"
+              to="/"
               className="text-lg font-semibold text-white tracking-wide underline p-3 rounded-md hover:bg-gradient-to-r to-[#DB6B80] from-[#B95568]  "
             >
               Dashboard
