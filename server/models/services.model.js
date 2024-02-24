@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const serviceSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   heading: {
     type: String,
     required: true,
@@ -55,10 +51,13 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bookings: [[{ type: Number }]],
-  freelancerUUID: {
-    type: String,
+  bookings: {
+    type: [[Number]],
     required: true,
+  },
+  freelancer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Freelancers",
   },
 });
 

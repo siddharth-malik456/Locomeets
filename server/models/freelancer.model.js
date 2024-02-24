@@ -23,6 +23,10 @@ const freelancerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Services",
   },
+  nationality: {
+    type: String,
+    required: true,
+  },
   profilePicture: {
     type: String,
     required: true,

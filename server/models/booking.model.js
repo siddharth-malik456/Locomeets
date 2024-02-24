@@ -6,10 +6,6 @@ const bookingSchema = new mongoose.Schema({
     ref: "Tourists",
     required: true,
   },
-  freelancerUUID: {
-    type: String,
-    required: true,
-  },
   service: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Services",
@@ -20,7 +16,7 @@ const bookingSchema = new mongoose.Schema({
     required: true,
   },
   date: {
-    type: String,
+    type: Date,
     required: true,
   },
 });

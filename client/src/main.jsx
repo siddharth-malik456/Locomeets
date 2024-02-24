@@ -1,18 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "@mantine/carousel/styles.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
-import "./index.css";
-import Login from "./routes/login";
+import "@mantine/core/styles.css";
+import { MantineProvider } from "@mantine/core";
 import Home from "./routes/home";
-import Register from "./routes/register";
-import FreelanceProfile from "./routes/freelanceProfile";
 import Services from "./routes/services";
-import UserProfile from "./routes/userProfile";
-import FreelancerDashboard from "./routes/freelancerDashboard";
-import UserBookings from "./routes/userBookings";
-import CreateService from "./routes/createService";
+import "./index.css";
+import Register from "./routes/register";
 
 const router = createBrowserRouter([
   {
@@ -24,38 +21,11 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-
       {
-        path: "freelanceProfile/:uuid",
-        element: <FreelanceProfile />,
-      },
-      {
-        path: "services/:service_id",
-        // change later
-        // path: "services",
+        path: "services",
         element: <Services />,
       },
-      {
-        path: "userprofile/:uuid",
-        element: <UserProfile />,
-      },
-      {
-        path: "freelanceDashboard/",
-        element: <FreelancerDashboard />,
-      },
-      {
-        path: "userBookings/",
-        element: <UserBookings />,
-      },
-      {
-        path: "services/create",
-        element: <CreateService />,
-      },
     ],
-  },
-  {
-    path: "login",
-    element: <Login />,
   },
   {
     path: "register",
@@ -64,7 +34,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <MantineProvider>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </MantineProvider>
 );
