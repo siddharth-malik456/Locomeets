@@ -1,7 +1,12 @@
 import { Carousel } from "@mantine/carousel";
 import ServiceCard from "../components/ServiceCard";
 import classes from "../Demo.module.css";
+import Cookies from "universal-cookie";
+
 export default function Home() {
+  const cookies = new Cookies(null, { path: "/" });
+
+  const isAuth = cookies.get("auth");
   return (
     <div>
       <img src="images/homepage_main.png" alt="" className="w-full" />

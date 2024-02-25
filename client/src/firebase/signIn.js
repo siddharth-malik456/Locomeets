@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+
+//NOT USED YET IN MAIN BUILD
 import {
   signInWithPopup,
   GoogleAuthProvider,
