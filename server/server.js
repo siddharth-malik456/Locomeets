@@ -13,7 +13,7 @@ const app = express();
 const serviceRoutes = require("./routes/services.route");
 const bookingRoutes = require("./routes/booking.router");
 const touristRouter = require("./routes/tourist.router");
-const freelancerRouter = require("./routes/freelancer.router");
+const userRouter = require("./routes/users.router");
 const reviewRouter = require("./routes/review.router");
 
 // -- -- MIDDLEWARE IMPORTS -- --
@@ -30,6 +30,7 @@ async function main() {
 }
 
 // -- -- MIDDLEWARE -- --
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(Middleware.decodeToken);
@@ -37,8 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // -- -- ROUTES -- --
 app.use("/services", serviceRoutes);
 app.use("/booking", bookingRoutes);
-app.use("/tourist", touristRouter);
-app.use("/freelancer", freelancerRouter);
+//app.use("/tourist", touristRouter); // Route DEPRECATED
+app.use("/users", userRouter);
 app.use("/review", reviewRouter);
 
 app.get("/", (req, res) => {
