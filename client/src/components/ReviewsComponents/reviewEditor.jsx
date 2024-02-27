@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import UserReview from "./UserReview";
 import ImagesInRow from "./ImagesInRow";
 import UploadImage from "../../Utility/clodinaryImageUpload";
+import Cookies from "universal-cookie";
 
 const ReviewEditor = () => {
+  const cookies = new Cookies(null, { path: "/" });
+  const auth = cookies.get("auth");
+  const uid = cookies.get("uid");
   const [formData, setFormData] = useState({
     heading: "",
     description: "",
@@ -38,6 +42,7 @@ const ReviewEditor = () => {
       })
     ).then((previews) => {
       setPreviewImages([...previewImages, ...previews]);
+      console.log(previewImages);
     });
     //  const imageUrls = files.map((file) => URL.createObjectURL(file));
     setFormData({
@@ -57,6 +62,7 @@ const ReviewEditor = () => {
       console.log("-------");
       console.log(ImagesUrls);
       console.log(formData);
+
       // Reset form data
       setFormData({
         heading: "",
