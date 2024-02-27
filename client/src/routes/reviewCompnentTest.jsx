@@ -27,7 +27,7 @@ const ReviewCompnentTest = () => {
       // servicesId: "x1234",
       userFirstName: "Nayan",
       userLastName: "Ansh Singh",
-      rating: 4,
+      rating: 2,
       heading: "It was an awesome experince ",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",

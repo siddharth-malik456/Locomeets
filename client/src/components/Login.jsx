@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { app } from "../firebase/firebase-config";
 import FirebaseAuthErrorHandler from "../Utility/FirebaseAuthErrorHandler";
 import Cookies from "universal-cookie";
+import login_img from "../public/images/login_img.png";
 
 export default function Login() {
   const navigate = useNavigate();
