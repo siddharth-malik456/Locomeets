@@ -12,8 +12,299 @@ const getRatingPercentage = (userRatingStats) => {
   }
   return ratingPercentage;
 };
+const getRatingStats = (userReviews) => {
+  const stats = [-1, 0, 0, 0, 0, 0];
+  userReviews.forEach((element) => {
+    const rating = element.rating;
+    stats[rating] = stats[rating] + 1;
+  });
+  return stats;
+};
 const ReviewCompnentTest = () => {
-  const ratingStats = [-1, 0, 0, 0, 3, 27];
+  const [reviews, setRevies] = useState([
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "Armenia",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture:
+        "https://th.bing.com/th/id/OIP.KtbewMQNQ-6vli6ffsoZBwHaO5?rs=1&pid=ImgDetMain",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 3,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "Canada",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 2,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "Chile",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 5,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 4,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 2,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 2,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+    {
+      //  userId: "1234",
+      // servicesId: "x1234",
+      userFirstName: "Nayan",
+      userLastName: "Ansh Singh",
+      rating: 3,
+      heading: "It was an awesome experince ",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper ultricies cursus. Cras molestie mi nec ex convallis molestie. Donec consequat blandit consequat. Sed placerat ultricies porttitor. Aenean venenatis faucibus felis a placerat. Proin tristique orci et nisl convallis interdum. Duis feugiat tortor erat, rutrum sagittis dui imperdiet non. Nunc fringilla blandit dui sed hendrerit. Vivamus non tincidunt turpis. Mauris porttitor massa non velit sodales pulvinar. Praesent tempor nulla non libero sagittis commodo. Sed laoreet sed diam nec volutpat. Proin eu dolor non ligula porttitor convallis sed id diam. Praesent sollicitudin faucibus nisi ac pharetra. Nunc eget dui eu massa consequat tristique tincidunt sed neque. Nullam hendrerit nulla in mi cursus, non fermentum magna pulvinar. Mauris in justo ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget elit eu neque pharetra luctus quis vel ligula. Nulla sed massa eu lectus efficitur pulvinar. Suspendisse mollis consectetur odio in maximus.",
+      images: [
+        "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+        "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+        "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      ],
+      profilePicture: "",
+      nationality: "India",
+      date: new Date("2023-01-15T00:00:00"),
+    },
+  ]);
+  const ratingStats = getRatingStats(reviews);
   const ratingPercent = getRatingPercentage(ratingStats);
 
   return (
@@ -105,7 +396,9 @@ const ReviewCompnentTest = () => {
         </div>
       </div>
       <div className="lg:w-1/2">
-        <ServiceReview />
+        {reviews.map((review) => {
+          return <ServiceReview review={review} />;
+        })}
       </div>
     </div>
   );

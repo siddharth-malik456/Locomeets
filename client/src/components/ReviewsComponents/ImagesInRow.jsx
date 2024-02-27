@@ -10,9 +10,10 @@ const slideImages = [
   "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
 ];
 
-const ImagesInRow = ({ Ratingvalue, setRatingValue, isPopUp }) => {
+const ImagesInRow = ({ review, isPopUp }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedImage, setSelectedImage] = useState(-1);
+  const slideImages = review.images;
   const handleImageClick = (index) => {
     setSelectedImage(slideImages[index]);
     open();
@@ -28,7 +29,7 @@ const ImagesInRow = ({ Ratingvalue, setRatingValue, isPopUp }) => {
         centered
       >
         <div className="flex justify-center flex-col">
-          <UserReview value={Ratingvalue} setValue={setRatingValue} />
+          <UserReview review={review} />
           <Image src={selectedImage} radius="md" className="w-max p-8" />
         </div>
       </Modal>
