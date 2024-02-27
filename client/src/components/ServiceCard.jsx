@@ -1,6 +1,6 @@
 import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 
-export default function ServiceCard() {
+export default function ServiceCard({ service }) {
   return (
     <div>
       <div className="w-72">

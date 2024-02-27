@@ -270,7 +270,6 @@ export default function Register() {
                 placeholder="Your email address"
                 name="email"
                 value={formData.email}
-                onChange={handleInputChange}
               />
             </div>
             <div className="mb-3">
@@ -311,7 +310,6 @@ export default function Register() {
                 <div className="flex items-center justify-between">
                   <p className="font-bold mt-2 text-l">CLIENT</p>
                   <Checkbox
-                    defaultChecked
                     color="lime.4"
                     iconColor="dark.8"
                     size="md"
@@ -331,7 +329,6 @@ export default function Register() {
                 <div className="flex items-center justify-between">
                   <p className="font-bold mt-2 text-l">FREELANCER</p>
                   <Checkbox
-                    defaultChecked
                     color="lime.4"
                     iconColor="dark.8"
                     size="md"
@@ -345,12 +342,7 @@ export default function Register() {
               </div>
             </div>
             <div className="flex gap-2 mt-6">
-              <Checkbox
-                defaultUnchecked
-                color="lime.4"
-                iconColor="dark.8"
-                size="md"
-              />
+              <Checkbox color="lime.4" iconColor="dark.8" size="md" />
               <p>
                 By click you agrees to our{" "}
                 <span className="underline font-semibold">
