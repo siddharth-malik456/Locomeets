@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ServiceReview from "../components/serviceReview";
+import ReviewEditor from "../components/ReviewsComponents/reviewEditor";
 
 const getRatingPercentage = (userRatingStats) => {
   let totalRating = 0;
@@ -43,8 +44,6 @@ const ReviewCompnentTest = () => {
       date: new Date("2023-01-15T00:00:00"),
     },
     {
-      //  userId: "1234",
-      // servicesId: "x1234",
       userFirstName: "Nayan",
       userLastName: "Ansh Singh",
       rating: 4,
@@ -311,7 +310,7 @@ const ReviewCompnentTest = () => {
     <div>
       <div className="p-8 font-semibold lg:w-1/2 text-xl">
         <p>Reviews</p>
-        <p>30 Reviews for this Service</p>
+        <p>{reviews.length} Reviews for this Service</p>
         <div className="ml-20 mt-4">
           {/* slider  */}
           <div class="w-[50%] relative mb-6  bg-gray-200 rounded-full h-2 dark:bg-gray-200">
@@ -395,6 +394,7 @@ const ReviewCompnentTest = () => {
           {/* ----- */}
         </div>
       </div>
+      <ReviewEditor />
       <div className="lg:w-1/2">
         {reviews.map((review) => {
           return <ServiceReview review={review} />;

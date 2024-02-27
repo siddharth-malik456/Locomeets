@@ -57,10 +57,7 @@ function getFlagUnicode(countryCode) {
   }
 }
 
-const UserReview = ({ review }) => {
-  console.log("in user section ");
-  console.log(countryJSON);
-
+const UserReview = ({ review, isReader }) => {
   return (
     <div className="text-lg flex flex-row space-x-4 ">
       <Avatar
@@ -81,18 +78,20 @@ const UserReview = ({ review }) => {
           />
           <p className="uppercase">{review.nationality}</p>
         </div>
-        <div name="rating" className="flex flex-row space-x-2">
-          <Rating
-            value={review.rating}
-            className="self-center "
-            //    onChange={setValue}
-            color="rgba(0, 0, 0, 1)"
-            readOnly
-          />
-          <p>{review.rating}</p>
-          <p className="text-gray-400">|</p>
-          <p className="text-gray-400">{getTimeAgo(review.date)}</p>
-        </div>
+        {isReader && (
+          <div name="rating" className="flex flex-row space-x-2">
+            <Rating
+              value={review.rating}
+              className="self-center "
+              //    onChange={setValue}
+              color="rgba(0, 0, 0, 1)"
+              readOnly
+            />
+            <p>{review.rating}</p>
+            <p className="text-gray-400">|</p>
+            <p className="text-gray-400">{getTimeAgo(review.date)}</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,13 +2,6 @@ import { Image, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import React, { useState } from "react";
 import UserReview from "./UserReview";
-const slideImages = [
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1444525873963-75d329ef9e1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-];
 
 const ImagesInRow = ({ review, isPopUp }) => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -43,7 +36,7 @@ const ImagesInRow = ({ review, isPopUp }) => {
             <Image
               onClick={() => handleImageClick(index)}
               key={index}
-              className={` ${isPopUp ? "w-1/2" : "w-24"} cursor-pointer  `}
+              className={` ${isPopUp ? "w-1/2" : "w-1/3"} cursor-pointer  `}
               fit="contain"
               radius="md"
               src={image}

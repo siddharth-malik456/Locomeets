@@ -4,6 +4,7 @@ import ReactCountryFlag from "react-country-flag";
 import ImagesInRow from "./ReviewsComponents/ImagesInRow";
 import UserReview from "./ReviewsComponents/UserReview";
 import { useDisclosure } from "@mantine/hooks";
+import ReviewEditor from "./ReviewsComponents/reviewEditor";
 const trimReview = (userReview) => {
   const words = userReview.trim().split(/\s+/);
 
@@ -34,7 +35,7 @@ const ServiceReview = ({ review }) => {
           </div>
         </div>
       </Modal>
-      {/* ------- */}
+      {/* ------- */}'
       <div className="p-8 ">
         <div name="userInfo" className="flex flex-col space-x-4">
           <UserReview review={review} />
