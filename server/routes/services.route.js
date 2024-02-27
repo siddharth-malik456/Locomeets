@@ -1,6 +1,6 @@
 const express = require("express");
 const Service = require("../models/services.model");
-const freelancerModel = require("../models/freelancer.model");
+const freelancerModel = require("../models/users.model");
 const router = express.Router();
 
 // -- -- READ ALL -- --

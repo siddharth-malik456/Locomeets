@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 
-const freelancerSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   UUID: {
     type: String,
     required: true,
     unique: true,
   },
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -29,10 +33,13 @@ const freelancerSchema = new mongoose.Schema({
   },
   profilePicture: {
     type: String,
+  },
+  isTourist: {
+    type: Boolean,
     required: true,
   },
 });
 
-const Freelancer = mongoose.model("Freelancers", freelancerSchema);
+const users = mongoose.model("users", userSchema);
 
-module.exports = Freelancer;
+module.exports = users;

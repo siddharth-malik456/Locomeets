@@ -14,6 +14,7 @@ import Home from "./routes/home";
 import Services from "./routes/services";
 import Register from "./routes/register";
 import SingleService from "./routes/singleService";
+import ReviewCompnentTest from "./routes/reviewCompnentTest";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "reviews",
+    element: <ReviewCompnentTest />,
   },
 ]);
 
