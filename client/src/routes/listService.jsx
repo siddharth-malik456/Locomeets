@@ -5,8 +5,12 @@ import { Group, Text, rem } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import indianStates from "../Utility/json/StateAndCities.json";
+import Cookies from "universal-cookie";
+import axios from "axios";
 
 export default function CreateService() {
+  const cookies = new Cookies();
+  const uuid = cookies.get("userUid");
   const categories = [
     { value: "arts", label: "Arts" },
     { value: "food", label: "Food" },
@@ -17,12 +21,9 @@ export default function CreateService() {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [formData, setFormData] = useState({
-    freelancerUUID: "",
     heading: "",
     description: "",
     price: 0,
-    city: "",
-    state: "",
   });
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
@@ -34,7 +35,6 @@ export default function CreateService() {
   };
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
-    setSelectedChoice("");
   };
   const handleCityChange = (value) => {
     setSelectedCity(value);
@@ -67,7 +67,33 @@ export default function CreateService() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const ListService = () => {};
+  const ListService = async () => {
+    const request = await axios.get(`http://localhost:3000/users/uid/${uuid}`);
+    const bookingArray = bookings.map((obj) => [
+      parseInt(obj.startTime),
+      parseInt(obj.endTime),
+    ]);
+    console.log(bookingArray);
+    if (request.data.isTourist) {
+      alert("you can't list service without having a freelancer account");
+    } else {
+      const listData = {
+        state: selectedState,
+        city: selectedCity,
+        price: formData.price,
+        category: selectedCategory,
+        booking: bookingArray,
+        heading: formData.heading,
+        description: formData.description,
+        images: ["nayan", "please", "put", "the", "images"],
+      };
+      const createResponse = await axios.post(
+        `http://localhost:3000/services/${request.data._id}`,
+        listData
+      );
+    }
+    console.log(request.data);
+  };
   return (
     <div className="flex flex-col text-[#283618]">
       <h1 className=" text-3xl font-bold text-center mb-4">
@@ -92,7 +118,7 @@ export default function CreateService() {
             className="border border-[#C9D1DA] rounded-md py-1 mb-2 active:outline-none active:border-[#C9D1DA] px-2 outline-none "
           ></textarea>
           <div className="flex justify-between mt-4">
-            <div className="flex justify-center items-center gap-8">
+            <div className="flex justify-center items-center gap-16">
               <label className="font-semibold">State</label>
               <Select
                 placeholder="Select State"
@@ -106,9 +132,9 @@ export default function CreateService() {
                 nothingFoundMessage="Nothing found..."
               />
             </div>
-            <div className="flex justify-center items-center gap-8">
+            <div className="flex justify-center items-center gap-12">
               <label className="font-semibold" htmlFor="city">
-                City:
+                City
               </label>
               <Select
                 placeholder="Select City"
@@ -128,17 +154,32 @@ export default function CreateService() {
               />
             </div>
           </div>
-          <label className="font-semibold mt-4" htmlFor="category">
-            Category
-          </label>
-          <Select
-            placeholder="Select Category"
-            data={categories}
-            searchable
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-            nothingFoundMessage="Nothing found..."
-          />
+          <div className="flex justify-between mt-4">
+            <div className="flex justify-center items-center gap-8">
+              <label className="font-semibold" htmlFor="category">
+                Category
+              </label>
+              <Select
+                placeholder="Select Category"
+                data={categories}
+                searchable
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                nothingFoundMessage="Nothing found..."
+              />
+            </div>
+            <div className="flex justify-center items-center gap-6">
+              <label className="font-semibold">Price</label>
+              <br />
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                className="border border-[#C9D1DA] py-0.5 rounded-md mb-2active:outline-none active:border-[#C9D1DA] px-2 outline-none w-full"
+              />
+            </div>
+          </div>
         </div>
         <div className="w-1/2">
           <h1 className="font-semibold">Select Your slots</h1>
@@ -153,6 +194,7 @@ export default function CreateService() {
                 min="0"
                 max="23"
                 value={startHour}
+                className="border border-[#C9D1DA] rounded-md py-1 active:outline-none active:border-[#C9D1DA] px-2 outline-none "
                 onChange={(e) => setStartHour(e.target.value)}
               />
             </div>
@@ -165,6 +207,7 @@ export default function CreateService() {
                 id="endHour"
                 min="0"
                 max="23"
+                className="border border-[#C9D1DA] rounded-md py-1 active:outline-none active:border-[#C9D1DA] px-2 outline-none "
                 value={endHour}
                 onChange={(e) => setEndHour(e.target.value)}
               />

@@ -11,7 +11,7 @@ const serviceSchema = new mongoose.Schema({
   },
   images: [
     {
-      type: [String],
+      type: String,
       required: true,
     },
   ],
@@ -36,11 +36,10 @@ const serviceSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ["arts", "cultivation", "food", "other", "live performance"],
   },
   bookings: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Bookings",
+    type: [[Number]],
+    required: true,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,

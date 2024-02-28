@@ -40,8 +40,10 @@ router.post("/:userId", async (req, res) => {
       state: req.body.state,
       author: req.params.userId,
       category: req.body.category,
-      bookings: req.body.bookings,
+      bookings: req.body.booking,
     });
+    response.save();
+    console.log(response);
     res.send(response);
   } catch (error) {
     console.error(error);
