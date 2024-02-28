@@ -41,6 +41,7 @@ const ServiceReview = ({ review }) => {
         <div name="userInfo" className="flex flex-col space-x-4">
           <UserReview review={review} isReader={true} />
           <div name="description_and_rating" className="mt-8">
+            <p className="font-bold text-lg">{review.heading}</p>
             <p onClick={open} className="cursor-pointer">
               {reviewTrimed}{" "}
               {review.description > 75 && (

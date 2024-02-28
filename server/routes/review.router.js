@@ -4,7 +4,6 @@ const Service = require("../models/services.model");
 
 const users = require("../models/users.model");
 
-
 const router = express.Router();
 
 // -- -- READ ONE -- --
@@ -15,7 +14,10 @@ router.get("/getuser/:id", async (req, res) => {
     const user = await users.findOne({ UUID: id });
     console.log("user found ");
     console.log(user);
-    const data = await Review.find({ user: user._id }).populate("user").exec();
+    const data = await Review.find({ user: user._id })
+      .populate("user")
+
+      .exec();
     console.log(data);
     if (data) {
       res.send(data);
@@ -66,11 +68,13 @@ router.get("/", async (req, res) => {
 // -- -- CREATE -- --
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body);
     const response = await Review.create(req.body);
 
     res.send(response);
   } catch (error) {
     console.error(error);
+    console.log("ERROR in create review ");
     res.status(500).send("Internal server error");
   }
 });

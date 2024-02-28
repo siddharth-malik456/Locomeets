@@ -62,30 +62,27 @@ const ReviewCompnentTest = () => {
   }, []);
   useEffect(() => {
     const d = async () => {
+      if (!auth) {
+        console.log("Not logged in");
+        return;
+      }
       const r = (await axios.get("http://localhost:3000/review/getuser/" + uid))
-        .data[0];
+        .data;
       console.log("HERE IN SINGE REVIEW");
-      setCurrentRevice({
-        userFirstName: r.user.firstName,
-        userLastName: r.user.lastName,
-        rating: r.rating,
-        heading: r.heading,
-        description: r.description,
-        images: r.images,
-        profilePicture: "",
-        nationality: r.user.nationality,
-        date: r.dateOfReview,
-      });
-      console.log({
-        userFirstName: r.user.firstName,
-        userLastName: r.user.lastName,
-        rating: r.rating,
-        heading: r.heading,
-        description: r.description,
-        images: r.images,
-        profilePicture: "",
-        nationality: r.user.nationality,
-        date: r.dateOfReview,
+      r.map((re) => {
+        if (re.service == params.id) {
+          setCurrentRevice({
+            userFirstName: r.user.firstName,
+            userLastName: r.user.lastName,
+            rating: r.rating,
+            heading: r.heading,
+            description: r.description,
+            images: r.images,
+            profilePicture: "",
+            nationality: r.user.nationality,
+            date: r.dateOfReview,
+          });
+        }
       });
     };
     d();
@@ -191,7 +188,7 @@ const ReviewCompnentTest = () => {
         </div>
       ) : (
         <div className="flex justify-center mt-4">
-          <Button className="" onClick={open}>
+          <Button className=" m-8" onClick={open}>
             Write a Review
           </Button>
         </div>
