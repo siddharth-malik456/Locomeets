@@ -59,7 +59,7 @@ const ReviewEditor = () => {
     e.preventDefault();
     // Handle form submission logic here
     try {
-      if (auth == "false") {
+      if (!auth) {
         throw "User not Logged in";
       }
       const ImagePromises = formData.images.map(async (image) => {
@@ -100,6 +100,7 @@ const ReviewEditor = () => {
 
   useEffect(() => {
     const d = async () => {
+      if (!auth) return;
       const data = (await axios.get("http://localhost:3000/users/uid/" + uid))
         .data;
       console.log(data);
