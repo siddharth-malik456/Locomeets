@@ -1,10 +1,13 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar } from "@mantine/dates";
 import TimeSlot from "./TimeSlot";
 
 export default function Booking() {
   const [selected, setSelected] = useState([]);
+  const [bookingData, setBookingData] = useState();
+
+  useEffect(() => {});
   const handleSelect = (date) => {
     const isSelected = selected.some((s) => dayjs(date).isSame(s, "date"));
     if (isSelected) {

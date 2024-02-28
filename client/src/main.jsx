@@ -14,7 +14,7 @@ import Home from "./routes/home";
 import Services from "./routes/services";
 import Register from "./routes/register";
 import SingleService from "./routes/singleService";
-import ReviewCompnentTest from "./components/reviewCompnentTest";
+import ListService from "./routes/listService";
 import Profile from "./routes/profile";
 
 const router = createBrowserRouter([
@@ -39,15 +39,15 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      {
+        path: "createService",
+        element: <ListService />,
+      },
     ],
   },
   {
     path: "register",
     element: <Register />,
-  },
-  {
-    path: "reviews/:id",
-    element: <ReviewCompnentTest />,
   },
 ]);
 

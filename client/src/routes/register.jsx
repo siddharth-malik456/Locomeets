@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ScrollArea } from "@mantine/core";
 import { Input, Select, Checkbox } from "@mantine/core";
 import { IMaskInput } from "react-imask";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +11,10 @@ import {
 } from "firebase/auth";
 import { app } from "../firebase/firebase-config";
 import axios from "axios";
+import countriesJson from "../Utility/json/Countries.json";
+
 export default function Register() {
+  const countries = countriesJson.countries;
   const cookies = new Cookies(null, { path: "/" });
   const { state } = useLocation();
   const naigate = useNavigate();
@@ -30,6 +34,7 @@ export default function Register() {
     mobileNumber: "",
     email: state?.email || "",
     nationality: "",
+    bio: "",
   });
   // REGISTER  LOGIC
   const handleEmailRegister = (userEmail, userPass) => {
@@ -76,204 +81,6 @@ export default function Register() {
   }, []);
   //--
 
-  const countries = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra",
-    "Angola",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bhutan",
-    "Bolivia",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Brazil",
-    "Brunei",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Central African Republic",
-    "Chad",
-    "Chile",
-    "China",
-    "Colombia",
-    "Comoros",
-    "Congo (Congo-Brazzaville)",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Cyprus",
-    "Czechia (Czech Republic)",
-    "Democratic Republic of the Congo",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic",
-    "East Timor (Timor-Leste)",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini (fmr. 'Swaziland')",
-    "Ethiopia",
-    "Fiji",
-    "Finland",
-    "France",
-    "Gabon",
-    "Gambia",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Greece",
-    "Grenada",
-    "Guatemala",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
-    "Honduras",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Ireland",
-    "Israel",
-    "Italy",
-    "Ivory Coast",
-    "Jamaica",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kiribati",
-    "Kuwait",
-    "Kyrgyzstan",
-    "Laos",
-    "Latvia",
-    "Lebanon",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Maldives",
-    "Mali",
-    "Malta",
-    "Marshall Islands",
-    "Mauritania",
-    "Mauritius",
-    "Mexico",
-    "Micronesia",
-    "Moldova",
-    "Monaco",
-    "Mongolia",
-    "Montenegro",
-    "Morocco",
-    "Mozambique",
-    "Myanmar (formerly Burma)",
-    "Namibia",
-    "Nauru",
-    "Nepal",
-    "Netherlands",
-    "New Zealand",
-    "Nicaragua",
-    "Niger",
-    "Nigeria",
-    "North Korea",
-    "North Macedonia (formerly Macedonia)",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Palau",
-    "Palestine State",
-    "Panama",
-    "Papua New Guinea",
-    "Paraguay",
-    "Peru",
-    "Philippines",
-    "Poland",
-    "Portugal",
-    "Qatar",
-    "Romania",
-    "Russia",
-    "Rwanda",
-    "Saint Kitts and Nevis",
-    "Saint Lucia",
-    "Saint Vincent and the Grenadines",
-    "Samoa",
-    "San Marino",
-    "Sao Tome and Principe",
-    "Saudi Arabia",
-    "Senegal",
-    "Serbia",
-    "Seychelles",
-    "Sierra Leone",
-    "Singapore",
-    "Slovakia",
-    "Slovenia",
-    "Solomon Islands",
-    "Somalia",
-    "South Africa",
-    "South Korea",
-    "South Sudan",
-    "Spain",
-    "Sri Lanka",
-    "Sudan",
-    "Suriname",
-    "Sweden",
-    "Switzerland",
-    "Syria",
-    "Tajikistan",
-    "Tanzania",
-    "Thailand",
-    "Togo",
-    "Tonga",
-    "Trinidad and Tobago",
-    "Tunisia",
-    "Turkey",
-    "Turkmenistan",
-    "Tuvalu",
-    "Uganda",
-    "Ukraine",
-    "United Arab Emirates",
-    "United Kingdom",
-    "United States of America",
-    "Uruguay",
-    "Uzbekistan",
-    "Vanuatu",
-    "Vatican City (Holy See)",
-    "Venezuela",
-    "Vietnam",
-    "Yemen",
-    "Zambia",
-    "Zimbabwe",
-  ];
-
   const countriesData = countries.map((country) => ({
     value: country,
     label: country,
@@ -319,9 +126,11 @@ export default function Register() {
       email: formData.email,
       nationality: formData.nationality,
       phoneNumber: formData.mobileNumber,
+      bio: formData.bio,
       isTourist: isClient,
       UUID: userUid,
     };
+    console.log(formData.bio);
     console.log(data);
     await axios.post("http://localhost:3000/users", data);
     naigate("..");
@@ -341,185 +150,209 @@ export default function Register() {
                 {formData.firstName}
               </span>
             </h1>
-            <form onSubmit={handleRegistration}>
-              <div className="mb-3">
-                <label htmlFor="firstName" className="text-[#903B4B] font-bold">
-                  First Name:
-                </label>
-                <Input
-                  placeholder="Your first name"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  maxLength={10}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="lastName" className="text-[#903B4B] font-bold">
-                  Last Name:
-                </label>
-                <Input
-                  placeholder="Your last name"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="text-[#903B4B] font-bold">
-                  Email:
-                </label>
-                <Input
-                  placeholder="Your email address"
-                  name="email"
-                  className=""
-                  value={
-                    state?.authMethod === "google"
-                      ? state.email
-                      : formData.email
-                  }
-                  disabled={state?.authMethod === "google" ? true : false}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label
-                  htmlFor="mobileNumber"
-                  className="text-[#903B4B] font-bold"
-                >
-                  Mobile Number:
-                </label>
-                <Input
-                  component={IMaskInput}
-                  mask="(000) 000-00-00"
-                  placeholder="Your phone"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
-                  onChange={handleInputChange}
-                />
-              </div>
-              {/* password  */}
-              {isAuth == "false" ? (
-                <div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="password"
-                      className="text-[#903B4B] font-bold"
-                    >
-                      Password
-                    </label>
-                    <Input
-                      placeholder="Your password"
-                      type="password"
-                      name="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="password"
-                      className="text-[#903B4B] font-bold"
-                    >
-                      Confirm Password
-                    </label>
-                    <Input
-                      placeholder="Confirm password"
-                      type="password"
-                      className={
-                        password != confirmPassword
-                          ? "active:border-2 active:rounded-lg focus:border-red-600  "
-                          : ""
-                      }
-                      name="password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                  </div>
+            <ScrollArea w={400} h={650} type="always" offsetScrollbars>
+              <form onSubmit={handleRegistration}>
+                <div className="mb-3">
+                  <label
+                    htmlFor="firstName"
+                    className="text-[#903B4B] font-bold"
+                  >
+                    First Name:
+                  </label>
+                  <Input
+                    placeholder="Your first name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    maxLength={10}
+                  />
                 </div>
-              ) : (
-                <div></div>
-              )}
+                <div className="mb-3">
+                  <label
+                    htmlFor="lastName"
+                    className="text-[#903B4B] font-bold"
+                  >
+                    Last Name:
+                  </label>
+                  <Input
+                    placeholder="Your last name"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="mb-1">
+                  <label
+                    htmlFor="lastName"
+                    className="text-[#903B4B] font-bold"
+                  >
+                    bio:
+                  </label>
+                  <br />
+                  <textarea
+                    placeholder="A short and sweet description about yourself"
+                    name="bio"
+                    value={formData.bio}
+                    onChange={handleInputChange}
+                    className="border border-[#C9D1DA] rounded-md py-1 active:outline-none active:border-[#C9D1DA] px-2 outline-none w-full"
+                  ></textarea>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="text-[#903B4B] font-bold">
+                    Email:
+                  </label>
+                  <Input
+                    placeholder="Your email address"
+                    name="email"
+                    className=""
+                    value={
+                      state?.authMethod === "google"
+                        ? state.email
+                        : formData.email
+                    }
+                    disabled={state?.authMethod === "google" ? true : false}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label
+                    htmlFor="mobileNumber"
+                    className="text-[#903B4B] font-bold"
+                  >
+                    Mobile Number:
+                  </label>
+                  <Input
+                    component={IMaskInput}
+                    mask="(000) 000-00-00"
+                    placeholder="Your phone"
+                    name="mobileNumber"
+                    value={formData.mobileNumber}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                {/* password  */}
+                {isAuth == "false" ? (
+                  <div>
+                    <div className="mb-3">
+                      <label
+                        htmlFor="password"
+                        className="text-[#903B4B] font-bold"
+                      >
+                        Password
+                      </label>
+                      <Input
+                        placeholder="Your password"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label
+                        htmlFor="password"
+                        className="text-[#903B4B] font-bold"
+                      >
+                        Confirm Password
+                      </label>
+                      <Input
+                        placeholder="Confirm password"
+                        type="password"
+                        className={
+                          password != confirmPassword
+                            ? "active:border-2 active:rounded-lg focus:border-red-600  "
+                            : ""
+                        }
+                        name="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
 
-              <div>
-                <label
-                  htmlFor="nationality"
-                  className="text-[#903B4B] font-bold"
-                >
-                  Nationality:
-                </label>
-                <Select
-                  placeholder="Pick value"
-                  data={countriesData}
-                  searchable
-                  value={formData.nationality}
-                  onChange={handleNationalityChange}
-                  nothingFoundMessage="Nothing found..."
-                />
-              </div>
-              <div className="flex gap-8 w-96 mt-8">
-                <div
-                  className={`border-2 p-2 w-1/2 rounded-xl ${
-                    isClient ? "border-[#A9E34B] shadow-xl" : "border-black"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="font-bold mt-2 text-l">CLIENT</p>
-                    <Checkbox
-                      defaultChecked
-                      color="lime.4"
-                      iconColor="dark.8"
-                      size="md"
-                      checked={isClient}
-                      onChange={(event) =>
-                        setIsClient(event.currentTarget.checked)
-                      }
-                    />
-                  </div>
-                  <p className="font-light mt-2">Explore local culture.</p>
+                <div>
+                  <label
+                    htmlFor="nationality"
+                    className="text-[#903B4B] font-bold"
+                  >
+                    Nationality:
+                  </label>
+                  <Select
+                    placeholder="Pick value"
+                    data={countriesData}
+                    searchable
+                    value={formData.nationality}
+                    onChange={handleNationalityChange}
+                    nothingFoundMessage="Nothing found..."
+                  />
                 </div>
-                <div
-                  className={`border-2 p-2 w-1/2 rounded-xl ${
-                    !isClient ? "border-[#A9E34B]  shadow-xl" : "border-black"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="font-bold mt-2 text-l">FREELANCER</p>
-                    <Checkbox
-                      defaultChecked
-                      color="lime.4"
-                      iconColor="dark.8"
-                      size="md"
-                      checked={!isClient}
-                      onChange={(event) =>
-                        setIsClient(!event.currentTarget.checked)
-                      }
-                    />
+                <div className="flex gap-8 w-96 mt-8">
+                  <div
+                    className={`border-2 p-2 w-1/2 rounded-xl ${
+                      isClient ? "border-[#A9E34B] shadow-xl" : "border-black"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <p className="font-bold mt-2 text-l">CLIENT</p>
+                      <Checkbox
+                        defaultChecked
+                        color="lime.4"
+                        iconColor="dark.8"
+                        size="md"
+                        checked={isClient}
+                        onChange={(event) =>
+                          setIsClient(event.currentTarget.checked)
+                        }
+                      />
+                    </div>
+                    <p className="font-light mt-2">Explore local culture.</p>
                   </div>
-                  <p className="font-light mt-2">Showcase your culture.</p>
+                  <div
+                    className={`border-2 p-2 w-1/2 rounded-xl ${
+                      !isClient ? "border-[#A9E34B]  shadow-xl" : "border-black"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <p className="font-bold mt-2 text-l">FREELANCER</p>
+                      <Checkbox
+                        defaultChecked
+                        color="lime.4"
+                        iconColor="dark.8"
+                        size="md"
+                        checked={!isClient}
+                        onChange={(event) =>
+                          setIsClient(!event.currentTarget.checked)
+                        }
+                      />
+                    </div>
+                    <p className="font-light mt-2">Showcase your culture.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex gap-2 mt-6">
-                <Checkbox
-                  defaultUnchecked
-                  color="lime.4"
-                  iconColor="dark.8"
-                  size="md"
-                />
-                <p>
-                  By click you agrees to our{" "}
-                  <span className="underline font-semibold">
-                    Terms and Conditions
-                  </span>
-                </p>
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-[#903B4B] mt-4 p-2 rounded-md font-semibold"
-              >
-                Register
-              </button>
-            </form>
+                <div className="flex gap-2 mt-6">
+                  <Checkbox
+                    defaultUnchecked
+                    color="lime.4"
+                    iconColor="dark.8"
+                    size="md"
+                  />
+                  <p>
+                    By click you agrees to our{" "}
+                    <span className="underline font-semibold">
+                      Terms and Conditions
+                    </span>
+                  </p>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full text-white bg-[#903B4B] mt-4 p-2 rounded-md font-semibold"
+                >
+                  Register
+                </button>
+              </form>
+            </ScrollArea>
           </div>
         </div>
       </div>

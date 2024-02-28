@@ -7,23 +7,19 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const data = await Service.find({})
-      //.populate("Reviews")
-      //  .populate("Freelancers")
-      .exec();
-
+    const data = await Service.find({}).populate("author").exec();
     console.log(data);
-
     res.send(data);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
 });
+
 router.get("/:id", async (req, res) => {
   try {
     const data = await Service.find({ _id: req.params.id })
-      // .populate("user")
+      .populate("author")
       .exec();
     console.log(data);
     res.send(data);
@@ -44,8 +40,10 @@ router.post("/:userId", async (req, res) => {
       state: req.body.state,
       author: req.params.userId,
       category: req.body.category,
-      bookings: req.body.bookings,
+      bookings: req.body.booking,
     });
+    response.save();
+    console.log(response);
     res.send(response);
   } catch (error) {
     console.error(error);

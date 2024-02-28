@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  bio: {
+    type: String,
+    required: true,
+  },
   phoneNumber: {
     type: String,
     required: true,
@@ -38,8 +42,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  languagesKnown: [
+    {
+      type: String,
+      default: "English",
+    },
+  ],
 });
 
-const users = mongoose.model("users", userSchema);
+const Users = mongoose.model("Users", userSchema);
 
-module.exports = users;
+module.exports = Users;

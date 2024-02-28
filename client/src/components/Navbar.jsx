@@ -81,20 +81,13 @@ export default function Navbar() {
         <Link to="/dashboard" className="hover:text-[#DDA15E]">
           Dashboard
         </Link>
-        <Modal
-          opened={serviceOpened}
-          onClose={closeService}
-          centered
-          size="30%"
-        >
-          <CreateService />
-        </Modal>
-        <p
+        <Link
+          to="/createService"
           onClick={openService}
           className="hover:text-[#DDA15E] hover:cursor-pointer"
         >
           List service
-        </p>
+        </Link>
         <Link to="/contact" className="hover:text-[#DDA15E]">
           Contact
         </Link>

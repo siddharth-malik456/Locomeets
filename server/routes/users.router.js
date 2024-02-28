@@ -49,6 +49,7 @@ router.post("/", async (req, res) => {
       nationality,
       phoneNumber,
       isTourist,
+      bio,
     } = req.body;
     const response = await users.create({
       UUID,
@@ -58,6 +59,7 @@ router.post("/", async (req, res) => {
       phoneNumber,
       nationality,
       isTourist,
+      bio,
     });
     //services and profilePic empty
     await response.save();
