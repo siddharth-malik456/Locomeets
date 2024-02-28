@@ -21,7 +21,6 @@ const ReviewEditor = () => {
   const navigate = useNavigate();
   const [previewImages, setPreviewImages] = useState([]);
   const [value, setValue] = useState(0);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -96,14 +95,9 @@ const ReviewEditor = () => {
       console.log(error);
     }
   };
-  // -----
+
   const [userData, setUserData] = useState();
-  // const userData = {
-  //   profilePicture: "",
-  //   userFirstName: "Nayan",
-  //   userLastName: "Ansh Singh",
-  //   nationality: "India",
-  // };
+
   useEffect(() => {
     const d = async () => {
       const data = (await axios.get("http://localhost:3000/users/uid/" + uid))
@@ -118,10 +112,11 @@ const ReviewEditor = () => {
       console.log(data);
     };
     d();
+    return;
   }, []);
 
   return (
-    <div>
+    <div className="bg-white max-w-lg mx-auto h-max p-4 border  ">
       {auth ? (
         <div className="max-w-3xl mx-auto mt-8">
           <form onSubmit={handleSubmit}>

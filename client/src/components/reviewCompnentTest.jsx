@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ServiceReview from "../components/ReviewsComponents/serviceReview";
-import ReviewEditor from "../components/ReviewsComponents/reviewEditor";
+import ServiceReview from "./ReviewsComponents/serviceReview";
+import ReviewEditor from "./ReviewsComponents/reviewEditor";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useDisclosure } from "@mantine/hooks";
+import { Drawer, Button } from "@mantine/core";
+import Cookies from "universal-cookie";
 
 const getRatingPercentage = (userRatingStats) => {
   let totalRating = 0;
@@ -24,9 +27,14 @@ const getRatingStats = (userReviews) => {
   return stats;
 };
 const ReviewCompnentTest = () => {
-
   const params = useParams();
   const [reviews, setreviews] = useState([]);
+  const [currentReview, setCurrentRevice] = useState([]);
+  const [openReviewDrawer, setopenReviewDrawer] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  const cookies = new Cookies(null, { path: "/" });
+  const uid = cookies.get("userUid");
+  const auth = cookies.get("auth");
   useEffect(() => {
     const getReviews = async () => {
       const userReviews = await axios.get(
@@ -47,31 +55,47 @@ const ReviewCompnentTest = () => {
           date: r.dateOfReview,
         });
       });
-      // setreviews([
-      //   ...reviews,
-      //   {
-      //     userFirstName: r.user.firstName,
-      //     userLastName: r.user.lastName,
-      //     rating: r.rating,
-      //     heading: r.heading,
-      //     description: r.description,
-      //     images: r.images,
-      //     profilePicture: "",
-      //     nationality: r.user.nationality,
-      //     date: r.dateOfReview,
-      //   },
-      // ]);
+
       setreviews(temp);
     };
     getReviews();
   }, []);
-
-
+  useEffect(() => {
+    const d = async () => {
+      const r = (await axios.get("http://localhost:3000/review/getuser/" + uid))
+        .data[0];
+      console.log("HERE IN SINGE REVIEW");
+      setCurrentRevice({
+        userFirstName: r.user.firstName,
+        userLastName: r.user.lastName,
+        rating: r.rating,
+        heading: r.heading,
+        description: r.description,
+        images: r.images,
+        profilePicture: "",
+        nationality: r.user.nationality,
+        date: r.dateOfReview,
+      });
+      console.log({
+        userFirstName: r.user.firstName,
+        userLastName: r.user.lastName,
+        rating: r.rating,
+        heading: r.heading,
+        description: r.description,
+        images: r.images,
+        profilePicture: "",
+        nationality: r.user.nationality,
+        date: r.dateOfReview,
+      });
+    };
+    d();
+    return;
+  }, []);
   const ratingStats = getRatingStats(reviews);
   const ratingPercent = getRatingPercentage(ratingStats);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       <div className="p-8 font-semibold lg:w-1/2 text-xl">
         <p>Reviews</p>
         <p>{reviews.length} Reviews for this Service</p>
@@ -158,7 +182,27 @@ const ReviewCompnentTest = () => {
           {/* ----- */}
         </div>
       </div>
-      <ReviewEditor />
+      {currentReview.length != 0 ? (
+        <div className=" flex flex-col p-2">
+          <p className="mx-auto font-bold text-lg p-4 ">Your Review</p>
+          <div className="bg-white border mx-auto lg:px-24  border-blue-200  ">
+            <ServiceReview review={currentReview} />
+          </div>
+        </div>
+      ) : (
+        <div className="flex justify-center mt-4">
+          <Button className="" onClick={open}>
+            Write a Review
+          </Button>
+        </div>
+      )}
+
+      <Drawer opened={opened} onClose={close} position="bottom" size="lg">
+        <div className="">
+          <ReviewEditor />
+        </div>
+      </Drawer>
+
       <div className="lg:w-1/2">
         {reviews.map((review) => {
           return <ServiceReview review={review} />;

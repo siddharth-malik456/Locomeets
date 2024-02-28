@@ -14,7 +14,7 @@ import Home from "./routes/home";
 import Services from "./routes/services";
 import Register from "./routes/register";
 import SingleService from "./routes/singleService";
-import ReviewCompnentTest from "./routes/reviewCompnentTest";
+import ReviewCompnentTest from "./components/reviewCompnentTest";
 
 const router = createBrowserRouter([
   {

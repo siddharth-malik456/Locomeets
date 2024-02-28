@@ -14,7 +14,8 @@ const trimReview = (userReview) => {
 const ServiceReview = ({ review }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [Ratingvalue, setRatingValue] = useState(4);
-
+  console.log("HERE IS SERVICE REVIEW");
+  console.log(review);
   const [reviewTrimed, setReviewTrimed] = useState(
     trimReview(review.description)
   );

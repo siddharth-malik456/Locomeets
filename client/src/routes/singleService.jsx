@@ -4,6 +4,7 @@ import ServiceImage from "../components/ServiceImage";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import Booking from "../components/Booking";
+import ReviewCompnentTest from "../components/reviewCompnentTest";
 
 export default function SingleService({ service }) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -98,6 +99,7 @@ export default function SingleService({ service }) {
         </p>
       </div>
       <h1 className="text-4xl text-center mt-4 font-bold">REVIEWS</h1>
+      <ReviewCompnentTest />
     </div>
   );
 }
