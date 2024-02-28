@@ -1,6 +1,6 @@
 const express = require("express");
 const Service = require("../models/services.model");
-const freelancerModel = require("../models/users.model");
+const User = require("../models/users.model");
 const router = express.Router();
 
 // -- -- READ ALL -- --
@@ -22,14 +22,10 @@ router.get("/", async (req, res) => {
 });
 router.get("/:id", async (req, res) => {
   try {
-    console.log("data");
     const data = await Service.find({ _id: req.params.id })
-      //.populate("Reviews")
-      //  .populate("Freelancers")
+      // .populate("user")
       .exec();
-
     console.log(data);
-
     res.send(data);
   } catch (error) {
     console.error(error);
@@ -37,35 +33,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 // -- -- CREATE -- --
-router.post("/", async (req, res) => {
+router.post("/:userId", async (req, res) => {
   try {
-    console.log("received -");
-    console.log(req.body);
-    let freeLancerId;
-    // const reviewId = req.body.reviewId;
-    const freelancerUUID = req.body.freelancerUUID;
-    //   const freelancerData = await freelancerModel
-    //     .findOne({ UUID: freelancerUUID })
-    //     .exec();
-    //   console.log(freelancerData);
-
-    //   if (freelancerData) {
-    //     freeLancerId = freelancerData._id;
-    //   }
     const response = await Service.create({
-      name: req.body.name,
       heading: req.body.heading,
       description: req.body.description,
       images: req.body.images,
-      workingDays: req.body.workingDays,
-
-      location: { latitude: req.body.latitude, longitude: req.body.longitude },
       price: req.body.price,
       city: req.body.city,
       state: req.body.state,
       category: req.body.category,
       bookings: req.body.bookings,
-      // freelancer: freeLancerId,
     });
     res.send(response);
   } catch (error) {

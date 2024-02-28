@@ -1,15 +1,36 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Carousel } from "@mantine/carousel";
 import ServiceImage from "../components/ServiceImage";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import Booking from "../components/Booking";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-export default function SingleService({ service }) {
+export default function SingleService() {
+  const params = useParams();
+  const [service, setService] = useState({});
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/services/${params.id}`
+        );
+        setService(response.data[0]);
+        console.log(response.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchServices();
+  }, []);
+
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className="mx-96 text-[#283618]">
-      <h1 className="text-4xl font-bold text-center mb-8 mt-8">Pot making</h1>
+      <h1 className="text-4xl font-bold text-center mb-8 mt-8">
+        {service && service.name}
+      </h1>
       <div className="flex justify-between items-center px-4">
         <div className="flex gap-4 items-center mb-8">
           <img
@@ -39,18 +60,7 @@ export default function SingleService({ service }) {
           </Carousel.Slide>
         </Carousel>
         <p className="mt-8 font-semibold text-2xl">About the experience</p>
-        <p className="mt-4 font-light">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius
-          inventore reiciendis odit debitis quam laudantium, cum architecto
-          dicta, aperiam at quae officia adipisci, mollitia quia! Vel et ex at
-          maiores? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Provident sed voluptas dolorem nulla a rem inventore neque at, quo
-          velit voluptates. Debitis illo similique reprehenderit neque expedita
-          natus quae eum! Repellendus ex mollitia atque officiis, ea iusto velit
-          perspiciatis nisi fuga laboriosam error! Odit facere iure quod
-          possimus exercitationem accusamus neque, beatae iste laudantium
-          distinctio temporibus tempore harum. Nisi, quaerat.
-        </p>
+        <p className="mt-4 font-light">{service && service.description}</p>
         <Modal centered opened={opened} onClose={close} size="70%">
           <Booking />
         </Modal>

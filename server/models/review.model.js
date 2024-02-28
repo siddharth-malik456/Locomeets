@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const reviewSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Tourist",
+    ref: "Users",
   },
   service: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Service",
+    ref: "Services",
   },
   rating: {
     type: Number,
@@ -33,3 +33,6 @@ const reviewSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+const Review = mongoose.model("Reviews", reviewSchema);
+module.exports = Review;

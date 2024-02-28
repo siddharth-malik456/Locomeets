@@ -1,7 +1,7 @@
 const express = require("express");
 const Review = require("../models/review.model");
 const Service = require("../models/services.model");
-const Tourist = require("../models/tourist.model");
+const User = require("../models/users.model");
 const router = express.Router();
 
 // -- -- READ ALL -- --
