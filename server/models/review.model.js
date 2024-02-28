@@ -4,10 +4,12 @@ const reviewSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users",
+    required: true,
   },
   service: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Services",
+    required: true,
   },
   rating: {
     type: Number,
@@ -24,15 +26,11 @@ const reviewSchema = new mongoose.Schema({
     required: true,
   },
   images: [{ type: String, required: true }],
-  like: {
-    type: Number,
-    default: 0,
-  },
+
   dateOfReview: {
     type: Date,
     default: Date.now,
   },
 });
-
 const Review = mongoose.model("Reviews", reviewSchema);
 module.exports = Review;

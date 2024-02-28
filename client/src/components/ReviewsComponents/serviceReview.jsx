@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Avatar, Modal, Rating } from "@mantine/core";
 import ReactCountryFlag from "react-country-flag";
-import ImagesInRow from "./ReviewsComponents/ImagesInRow";
-import UserReview from "./ReviewsComponents/UserReview";
+import ImagesInRow from "./ImagesInRow";
+import UserReview from "./UserReview";
 import { useDisclosure } from "@mantine/hooks";
+import ReviewEditor from "./reviewEditor";
 const trimReview = (userReview) => {
   const words = userReview.trim().split(/\s+/);
 
@@ -34,13 +35,16 @@ const ServiceReview = ({ review }) => {
           </div>
         </div>
       </Modal>
-      {/* ------- */}
+      {/* ------- */}'
       <div className="p-8 ">
         <div name="userInfo" className="flex flex-col space-x-4">
-          <UserReview review={review} />
+          <UserReview review={review} isReader={true} />
           <div name="description_and_rating" className="mt-8">
             <p onClick={open} className="cursor-pointer">
-              {reviewTrimed} <span className="text-blue-500">Read more...</span>{" "}
+              {reviewTrimed}{" "}
+              {review.description > 75 && (
+                <span className="text-blue-500">Read more...</span>
+              )}
             </p>
             <ImagesInRow review={review} isPopUp={false} />
           </div>
