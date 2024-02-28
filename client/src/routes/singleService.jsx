@@ -1,34 +1,12 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { Carousel } from "@mantine/carousel";
 import ServiceImage from "../components/ServiceImage";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import Booking from "../components/Booking";
-
 import ReviewCompnentTest from "../components/reviewCompnentTest";
 
-import axios from "axios";
-import { useParams } from "react-router-dom";
-
-export default function SingleService() {
-  const params = useParams();
-  const [service, setService] = useState({});
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/services/${params.id}`
-        );
-        setService(response.data[0]);
-        console.log(response.data[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchServices();
-  }, []);
-
-
+export default function SingleService({ service }) {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className="mx-96 text-[#283618]">
