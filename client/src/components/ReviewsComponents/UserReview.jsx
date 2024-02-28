@@ -6,8 +6,7 @@ function getTimeAgo(d) {
   const currentDate = new Date();
   const date = new Date(d);
   // Check if the provided date is today
-  console.log("----234567890ytrszxchjo");
-  console.log(typeof date);
+
   if (date.toDateString() === currentDate.toDateString()) {
     return "Today";
   }
@@ -60,8 +59,6 @@ function getFlagUnicode(countryCode) {
 }
 
 const UserReview = ({ review, isReader }) => {
-  console.log("1234567890-");
-  console.log(review);
   return (
     <div className="text-lg flex flex-row space-x-4 ">
       <Avatar

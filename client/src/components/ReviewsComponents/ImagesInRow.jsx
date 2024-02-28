@@ -27,8 +27,8 @@ const ImagesInRow = ({ review, isPopUp }) => {
         </div>
       </Modal>
       <div
-        className={` my-4 flex overflow-x-auto scroll-snap-x-mandatory  ${
-          isPopUp ? "w-full" : "w-96"
+        className={` my-4 flex overflow-x-auto scroll-snap-x-mandatory md:h-24 lg:h-40  ${
+          isPopUp ? "w-full" : ""
         }     flex-row space-x-2`}
       >
         {slideImages.map((image, index) => {
@@ -36,9 +36,10 @@ const ImagesInRow = ({ review, isPopUp }) => {
             <Image
               onClick={() => handleImageClick(index)}
               key={index}
-              className={` ${isPopUp ? "w-1/2" : "w-1/3"} cursor-pointer  `}
+              className={`  cursor-pointer  `}
               fit="contain"
               radius="md"
+              size="lg"
               src={image}
             />
           );
