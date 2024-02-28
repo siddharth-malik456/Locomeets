@@ -22,7 +22,7 @@ export default function AllServices() {
       <h1 className="text-2xl font-semibold mb-8">Services</h1>
       <div className="flex flex-wrap gap-24">
         {services.map((service) => {
-          return <ServiceCard service={service} />;
+          return <ServiceCard service={service} key={service._id} />;
         })}
       </div>
     </div>

@@ -12,7 +12,6 @@ const app = express();
 // -- -- ROUTING IMPORTS -- --
 const serviceRoutes = require("./routes/services.route");
 const bookingRoutes = require("./routes/booking.router");
-const touristRouter = require("./routes/tourist.router");
 const userRouter = require("./routes/users.router");
 const reviewRouter = require("./routes/review.router");
 
@@ -24,7 +23,7 @@ main().catch((err) => console.log(err));
 async function main() {
   //yzbcUvOCzwNTj4QU
   await mongoose.connect(
-    "mongodb+srv://nayanansh:yzbcUvOCzwNTj4QU@cluster0.xhzfkux.mongodb.net/"
+    "mongodb+srv://root:root@badam6969.qrmbbm8.mongodb.net/?retryWrites=true&w=majority&appName=Badam6969"
   );
   console.log("Connection open");
 }
@@ -38,7 +37,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // -- -- ROUTES -- --
 app.use("/services", serviceRoutes);
 app.use("/booking", bookingRoutes);
-//app.use("/tourist", touristRouter); // Route DEPRECATED
 app.use("/users", userRouter);
 app.use("/review", reviewRouter);
 
