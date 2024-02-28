@@ -6,9 +6,23 @@ const router = express.Router();
 
 // -- -- READ ALL -- --
 router.get("/:serviceId", async (req, res) => {
+  const { serviceId } = req.params;
+  try {
+    console.log(serviceId);
+    const data = await Review.find({ service: serviceId })
+      .populate("user")
+      //   .populate("services")
+      .exec();
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
+router.get("/", async (req, res) => {
   const serviceId = req.params;
   try {
-    const data = await Review.find({ serviceId: serviceId }).exec();
+    const data = await Review.find().exec();
     res.send(data);
   } catch (error) {
     console.error(error);
@@ -17,7 +31,7 @@ router.get("/:serviceId", async (req, res) => {
 });
 
 // -- -- READ ONE -- --
-router.get("/:id", async (req, res) => {
+router.get("/getOne/:id", async (req, res) => {
   try {
     const id = req.params;
     const data = await Review.findById(id);
@@ -29,20 +43,9 @@ router.get("/:id", async (req, res) => {
 });
 
 // -- -- CREATE -- --
-router.post("/:serviceId/:userId", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { serviceId, userId } = req.params;
-    const { rating, heading, description, images, like } = req.body;
-
-    const response = await Review.create({
-      service: serviceId,
-      user: userId,
-      rating,
-      heading,
-      description,
-      images,
-      like,
-    });
+    const response = await Review.create(req.body);
 
     res.send(response);
   } catch (error) {
@@ -78,9 +81,10 @@ router.put("/:id", async (req, res) => {
 // -- -- DELETE -- --
 router.delete("/:id", async (req, res) => {
   try {
+    console.log("delete commad for  review");
     const { id } = req.params;
     const response = await Review.findByIdAndDelete(id);
-    await response.save();
+    // await response.save();
     res.send(response);
   } catch (error) {
     console.error(error);

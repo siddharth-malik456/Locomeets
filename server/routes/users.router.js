@@ -15,10 +15,21 @@ router.get("/", async (req, res) => {
 });
 
 // -- -- READ ONE -- --
+router.get("/uid/:uid", async (req, res) => {
+  try {
+    const uid = req.params.uid;
+    const data = await users.findOne({ UUID: uid });
+    console.log(data);
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 router.get("/:id", async (req, res) => {
   try {
-    const id = req.params.id;
-    const data = await Tourist.findOne({ UUID: id });
+    const { id } = req.params;
+    const data = await users.findOne({ _id: id });
     res.send(data);
   } catch (error) {
     console.error(error);
@@ -83,6 +94,7 @@ router.put("/:id", async (req, res) => {
 // -- -- DELETE -- --
 router.delete("/:id", async (req, res) => {
   try {
+    console.log("delete command");
     const { id } = req.params;
     const response = await users.findByIdAndDelete(id);
     await response.save();
