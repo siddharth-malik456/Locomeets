@@ -24,6 +24,7 @@ const getRatingStats = (userReviews) => {
   return stats;
 };
 const ReviewCompnentTest = () => {
+
   const params = useParams();
   const [reviews, setreviews] = useState([]);
   useEffect(() => {
@@ -64,6 +65,8 @@ const ReviewCompnentTest = () => {
     };
     getReviews();
   }, []);
+
+
   const ratingStats = getRatingStats(reviews);
   const ratingPercent = getRatingPercentage(ratingStats);
 

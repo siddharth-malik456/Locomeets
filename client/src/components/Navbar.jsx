@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
+import nav_img from "../../public/icons/search_icon.png";
+import CreateService from "../components/CreateService";
 import Login from "./Login";
 import Cookies from "universal-cookie";
 import { getAuth, signOut } from "firebase/auth";
@@ -9,7 +11,10 @@ import { app } from "../firebase/firebase-config";
 export default function Navbar() {
   const cookies = new Cookies(null, { path: "/" });
   const [isAuth, setAuth] = useState(cookies.get("auth") || "false");
-  const [opened, { open, close }] = useDisclosure(false);
+  const [loginOpened, { open: openLogin, close: closeLogin }] =
+    useDisclosure(false);
+  const [serviceOpened, { open: openService, close: closeService }] =
+    useDisclosure(false);
   const auth = getAuth(app);
   // ---  SIGN OUT ---
   const handleSignOut = () => {
@@ -30,14 +35,14 @@ export default function Navbar() {
   };
   console.log(isAuth);
   return (
-    <div className="text-[#283618] pt-2 pb-8 sticky top-0 bg-white z-10">
+    <div className="text-[#283618] pt-2 pb-8 sticky top-0 bg-white bg-opacity-85 z-10">
       <div className="flex w-full justify-center px-16 items-center">
         <div className="w-1/3">
-          <div className=" flex gap-2 w-1/3 border-b-2 border-[#e0ead5] py-1">
-            <img src="icons/search_icon.png" className="w-6" alt="" />
+          <div className=" flex gap-2 w-1/3 border-b-2 border-[#283618] py-1">
+            <img src={nav_img} className="w-6" alt="" />
             <input
               type="text"
-              className="text-[#283618] placeholder:text-[#283618] focus:border-none focus:outline-none "
+              className="text-[#283618] placeholder:text-[#283618] focus:border-none focus:outline-none bg-transparent"
               placeholder="Search..."
             />
           </div>
@@ -49,12 +54,15 @@ export default function Navbar() {
         >
           Locomeets
         </Link>
-        <Modal opened={opened} onClose={close} centered size="70%">
+        <Modal opened={loginOpened} onClose={closeLogin} centered size="70%">
           {" "}
           <Login />{" "}
         </Modal>
         {isAuth == "false" ? (
-          <p className="w-1/3 text-end hover:cursor-pointer" onClick={open}>
+          <p
+            className="w-1/3 text-end hover:cursor-pointer"
+            onClick={openLogin}
+          >
             Log In
           </p>
         ) : (
@@ -73,9 +81,20 @@ export default function Navbar() {
         <Link to="/dashboard" className="hover:text-[#DDA15E]">
           Dashboard
         </Link>
-        <Link to="/list-service" className="hover:text-[#DDA15E]">
+        <Modal
+          opened={serviceOpened}
+          onClose={closeService}
+          centered
+          size="30%"
+        >
+          <CreateService />
+        </Modal>
+        <p
+          onClick={openService}
+          className="hover:text-[#DDA15E] hover:cursor-pointer"
+        >
           List service
-        </Link>
+        </p>
         <Link to="/contact" className="hover:text-[#DDA15E]">
           Contact
         </Link>

@@ -15,25 +15,19 @@ const serviceSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  workingDays: [
-    {
-      type: Number,
-      required: true,
-    },
-  ],
   //   reviews: [
   //     {
   //       type: mongoose.Schema.Types.ObjectId,
   //       ref: "Reviews",
   //     },
   //   ],
-  location: {
-    latitude: {
-      type: String,
-    },
-    longitude: {
-      type: String,
-    },
+  state: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
   },
   price: {
     type: Number,

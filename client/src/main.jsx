@@ -1,3 +1,4 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "@mantine/carousel/styles.css";
@@ -5,11 +6,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
+import "@mantine/carousel/styles.css";
+import "@mantine/dropzone/styles.css";
 import { MantineProvider } from "@mantine/core";
 import Home from "./routes/home";
 import Services from "./routes/services";
-import "./index.css";
 import Register from "./routes/register";
+import SingleService from "./routes/singleService";
 import ReviewCompnentTest from "./routes/reviewCompnentTest";
 
 const router = createBrowserRouter([
@@ -25,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Services />,
+      },
+      {
+        path: "services/:id",
+        element: <SingleService />,
       },
     ],
   },

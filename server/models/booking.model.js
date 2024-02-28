@@ -11,10 +11,14 @@ const bookingSchema = new mongoose.Schema({
     ref: "Services",
     required: true,
   },
-  bookedSlot: {
-    type: [Number],
-    required: true,
-  },
+  bookedSlot: [
+    [
+      {
+        type: Number,
+        required: true,
+      },
+    ],
+  ],
   date: {
     type: Date,
     required: true,
