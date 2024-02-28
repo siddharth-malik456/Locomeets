@@ -1,9 +1,44 @@
 const express = require("express");
 const Review = require("../models/review.model");
 const Service = require("../models/services.model");
-const User = require("../models/users.model");
+
+const users = require("../models/users.model");
+
 const router = express.Router();
 
+// -- -- READ ONE -- --
+router.get("/getuser/:id", async (req, res) => {
+  try {
+    console.log("--- getuserReview --- ");
+    const { id } = req.params;
+    const user = await users.findOne({ UUID: id });
+    console.log("user found ");
+    console.log(user);
+    const data = await Review.find({ user: user._id })
+      .populate("user")
+
+      .exec();
+    console.log(data);
+    if (data) {
+      res.send(data);
+    } else {
+      res.send([]);
+    }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+});
+router.get("/getOne/:id", async (req, res) => {
+  try {
+    const id = req.params;
+    const data = await Review.findById(id);
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 // -- -- READ ALL -- --
 router.get("/:serviceId", async (req, res) => {
   const { serviceId } = req.params;
@@ -30,26 +65,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-// -- -- READ ONE -- --
-router.get("/getOne/:id", async (req, res) => {
-  try {
-    const id = req.params;
-    const data = await Review.findById(id);
-    res.send(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
-  }
-});
-
 // -- -- CREATE -- --
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body);
     const response = await Review.create(req.body);
 
     res.send(response);
   } catch (error) {
     console.error(error);
+    console.log("ERROR in create review ");
     res.status(500).send("Internal server error");
   }
 });

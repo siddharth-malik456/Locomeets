@@ -4,6 +4,9 @@ import ServiceImage from "../components/ServiceImage";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import Booking from "../components/Booking";
+
+import ReviewCompnentTest from "../components/reviewCompnentTest";
+
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -24,6 +27,7 @@ export default function SingleService() {
     };
     fetchServices();
   }, []);
+
 
   const [opened, { open, close }] = useDisclosure(false);
   return (
@@ -111,6 +115,7 @@ export default function SingleService() {
         <p className="font-light mt-4">{service?.author?.bio}</p>
       </div>
       <h1 className="text-4xl text-center mt-4 font-bold">REVIEWS</h1>
+      <ReviewCompnentTest />
     </div>
   );
 }
