@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "reviews",
+    path: "reviews/:id",
     element: <ReviewCompnentTest />,
   },
 ]);

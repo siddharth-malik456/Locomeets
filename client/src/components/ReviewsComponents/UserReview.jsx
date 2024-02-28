@@ -2,10 +2,12 @@ import { Avatar, Rating } from "@mantine/core";
 import React from "react";
 import ReactCountryFlag from "react-country-flag";
 import countryJSON from "../../Utility/json/CountryAbbreviation.json";
-function getTimeAgo(date) {
+function getTimeAgo(d) {
   const currentDate = new Date();
-
+  const date = new Date(d);
   // Check if the provided date is today
+  console.log("----234567890ytrszxchjo");
+  console.log(typeof date);
   if (date.toDateString() === currentDate.toDateString()) {
     return "Today";
   }
@@ -58,38 +60,41 @@ function getFlagUnicode(countryCode) {
 }
 
 const UserReview = ({ review, isReader }) => {
+  console.log("1234567890-");
+  console.log(review);
   return (
     <div className="text-lg flex flex-row space-x-4 ">
       <Avatar
         color="blue"
-        src={review.profilePicture ? review.profilePicture : ""}
+        src={review?.profilePicture ? review.profilePicture : ""}
         radius="xl"
         size="lg"
       >
-        {review.profilePicture ? "" : review.userFirstName[0]}
+        {review?.profilePicture ? "" : review?.userFirstName[0]}
       </Avatar>
       <div>
-        <h2>{review.userFirstName + " " + review.userLastName}</h2>
+        <h2>{review?.userFirstName + " " + review?.userLastName}</h2>
+
         <div className="flex flex-row space-x-2 align-middle ">
           <ReactCountryFlag
             className="  self-center  align-middle"
-            countryCode={countryJSON[review.nationality]}
+            countryCode={countryJSON[review?.nationality]}
             svg
           />
-          <p className="uppercase">{review.nationality}</p>
+          <p className="uppercase">{review?.nationality}</p>
         </div>
         {isReader && (
           <div name="rating" className="flex flex-row space-x-2">
             <Rating
-              value={review.rating}
+              value={review?.rating}
               className="self-center "
               //    onChange={setValue}
               color="rgba(0, 0, 0, 1)"
               readOnly
             />
-            <p>{review.rating}</p>
+            <p>{review?.rating}</p>
             <p className="text-gray-400">|</p>
-            <p className="text-gray-400">{getTimeAgo(review.date)}</p>
+            <p className="text-gray-400">{getTimeAgo(review?.date)}</p>
           </div>
         )}
       </div>
