@@ -115,7 +115,7 @@ export default function Login() {
   };
   // --- HANDLE EMAIL REGISTER ---
   const handleEmailRegister = () => {
-    handleOldUser(null, null, null);
+    navigate("/register");
   };
   return (
     <div className="flex justify-around">
