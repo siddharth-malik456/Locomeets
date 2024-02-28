@@ -42,6 +42,7 @@ router.post("/:userId", async (req, res) => {
       price: req.body.price,
       city: req.body.city,
       state: req.body.state,
+      author: req.params.userId,
       category: req.body.category,
       bookings: req.body.bookings,
     });
