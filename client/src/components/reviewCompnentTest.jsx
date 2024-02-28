@@ -71,16 +71,18 @@ const ReviewCompnentTest = () => {
       console.log("HERE IN SINGE REVIEW");
       r.map((re) => {
         if (re.service == params.id) {
+          console.log("found");
+          console.log(re);
           setCurrentRevice({
-            userFirstName: r.user.firstName,
-            userLastName: r.user.lastName,
-            rating: r.rating,
-            heading: r.heading,
-            description: r.description,
-            images: r.images,
+            userFirstName: re.user.firstName,
+            userLastName: re.user.lastName,
+            rating: re.rating,
+            heading: re.heading,
+            description: re.description,
+            images: re.images,
             profilePicture: "",
-            nationality: r.user.nationality,
-            date: r.dateOfReview,
+            nationality: re.user.nationality,
+            date: re.dateOfReview,
           });
         }
       });
