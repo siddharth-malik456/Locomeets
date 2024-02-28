@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/booking.model");
-const Tourist = require("../models/tourist.model");
+const User = require("../models/users.model");
 
 // -- -- MIDDLEWARE FUNCTIONS -- --
 async function getBooking(req, res, next) {
