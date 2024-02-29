@@ -105,12 +105,13 @@ export default function Booking({ service }) {
       bookingData
     );
     console.log(request);
-    //  navigate(0);
+    navigate(0);
   };
   return (
     <>
-      <h1 className=" text-3xl font-bold text-center">Booking</h1>
-      <div className="py-2 my-2 px-4 mx-4 flex ">
+      <h1 className=" text-3xl  font-bold text-center">Booking</h1>
+
+      <div className="py-2  lg:flex-row flex-col my-2 px-4 flex ">
         <div className="w-1/2">
           <p className="font-semibold text-xl mt-4 text-center">Choose date</p>
           <div className="flex justify-center">

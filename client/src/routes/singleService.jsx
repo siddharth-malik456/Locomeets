@@ -30,7 +30,7 @@ export default function SingleService() {
     fetchServices();
   }, []);
   return (
-    <div className="mx-96 text-[#283618]">
+    <div className=" lg:max-w-4xl  mx-auto text-[#283618]">
       <h1 className="text-4xl font-bold text-center mb-8 mt-8">
         {service?.heading}
       </h1>

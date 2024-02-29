@@ -6,8 +6,10 @@ import { useParams } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { Drawer, Button } from "@mantine/core";
 import Cookies from "universal-cookie";
-
+const INITIAL_REVIEW_SEEK_VALUES = [-1, 1, 1, 1, 1, 1]; // each value represents  is % of seek filled the oth index is not used anywhere
 const getRatingPercentage = (userRatingStats) => {
+  if (JSON.stringify(userRatingStats) === JSON.stringify([-1, 0, 0, 0, 0, 0]))
+    return INITIAL_REVIEW_SEEK_VALUES;
   let totalRating = 0;
   for (let i = 1; i < userRatingStats.length; i++) {
     totalRating += userRatingStats[i];

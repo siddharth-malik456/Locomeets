@@ -1,9 +1,12 @@
+import { Button } from "@mantine/core";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function ServicesSidebar() {
+  const navigate = useNavigate();
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
   const [selectedState, setSelectedState] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const statesOfIndia = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -40,24 +43,38 @@ export default function ServicesSidebar() {
     "Lakshadweep",
     "Puducherry",
   ];
+  const handleFilter = () => {
+    navigate(`?state=${selectedState}`);
+  };
+
   return (
     <div className="ml-32 w-60 text-[#283618]">
       <div className="mb-8">
         <h1 className="text-2xl font-semibold mb-2">Browse By</h1>
         <hr className="h-1 bg-[#283618] mb-2" />
         <div className="flex flex-col gap-2 font-light text-xl">
-          <Link className="hover:font-bold">All products</Link>
-          <Link className="hover:font-bold">Arts</Link>
-          <Link className="hover:font-bold">Food</Link>
-          <Link className="hover:font-bold">Cultivation</Link>
-          <Link className="hover:font-bold">Live Performance</Link>
+          <Link to={"/services/all"} className="hover:font-bold">
+            All products
+          </Link>
+          <Link to={"/services/arts"} className="hover:font-bold">
+            Arts
+          </Link>
+          <Link to={"/services/food"} className="hover:font-bold">
+            Food
+          </Link>
+          <Link to={"/services/cultivation"} className="hover:font-bold">
+            Cultivation
+          </Link>
+          <Link to={"/services/live-performance"} className="hover:font-bold">
+            Live Performance
+          </Link>
         </div>
       </div>
       <div>
         <h1 className="text-2xl font-semibold mb-2">Filter By</h1>
         <hr className="h-1 bg-[#283618] mb-2" />
         <div className="flex flex-col gap-2 font-light text-xl">
-          <div>
+          {/* <div>
             <p>Price</p>
             <div className="flex justify-between w-60 px-4 pt-2">
               <input
@@ -85,7 +102,7 @@ export default function ServicesSidebar() {
                 Go
               </button>
             </div>
-          </div>
+          </div> */}
           <p>State</p>
           <select
             className="border border-[#283618] py-1 px-2 focus:border-[#283618] focus:outline-none"
@@ -99,6 +116,9 @@ export default function ServicesSidebar() {
               </option>
             ))}
           </select>
+          <Button color={"black"} onClick={handleFilter}>
+            Filter
+          </Button>
         </div>
       </div>
     </div>

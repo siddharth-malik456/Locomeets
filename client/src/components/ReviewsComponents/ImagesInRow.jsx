@@ -3,7 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import React, { useState } from "react";
 import UserReview from "./UserReview";
 
-const ImagesInRow = ({ review, isPopUp }) => {
+const ImagesInRow = ({ review, isPopUp, showProfile = true }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [selectedImage, setSelectedImage] = useState(-1);
   const slideImages = review.images;
@@ -11,6 +11,7 @@ const ImagesInRow = ({ review, isPopUp }) => {
     setSelectedImage(slideImages[index]);
     open();
   };
+
   return (
     <>
       <Modal
@@ -22,7 +23,7 @@ const ImagesInRow = ({ review, isPopUp }) => {
         centered
       >
         <div className="flex justify-center flex-col">
-          <UserReview review={review} />
+          {showProfile && <UserReview review={review} />}
           <Image src={selectedImage} radius="md" className="w-max p-8" />
         </div>
       </Modal>
