@@ -16,9 +16,11 @@ import Register from "./routes/register";
 import SingleService from "./routes/singleService";
 import ListService from "./routes/listService";
 import Profile from "./routes/profile";
+import FreelancerDashboard from "./routes/freelancerDashboard";
 import Booking from "./components/Booking";
 import BookingRoute from "./routes/bookingRoute";
 import AllServices from "./components/AllServices";
+import UserInfo from "./routes/UserInfo";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,20 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+        children: [
+          {
+            path: "userinfo",
+            element: <UserInfo />,
+          },
+          {
+            path: "freelancerDashboard",
+            element: <FreelancerDashboard />,
+          },
+          {
+            path: "bookings",
+            element: <BookingRoute />,
+          },
+        ],
       },
 
       {
