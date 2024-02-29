@@ -16,6 +16,8 @@ import Register from "./routes/register";
 import SingleService from "./routes/singleService";
 import ListService from "./routes/listService";
 import Profile from "./routes/profile";
+import Booking from "./components/Booking";
+import BookingRoute from "./routes/bookingRoute";
 
 const router = createBrowserRouter([
   {
@@ -39,10 +41,13 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+
       {
         path: "createService",
         element: <ListService />,
       },
+
+      { path: "booking", element: <BookingRoute /> },
     ],
   },
   {
