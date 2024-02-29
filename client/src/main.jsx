@@ -9,13 +9,16 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/dropzone/styles.css";
+import "@mantine/notifications/styles.css";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import Home from "./routes/home";
 import Services from "./routes/services";
 import Register from "./routes/register";
 import SingleService from "./routes/singleService";
 import ListService from "./routes/listService";
 import Profile from "./routes/profile";
+import Notfound from "./routes/notFound";
 
 const router = createBrowserRouter([
   {
@@ -49,10 +52,12 @@ const router = createBrowserRouter([
     path: "register",
     element: <Register />,
   },
+  { path: "*", element: <Notfound /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <MantineProvider>
+    <Notifications />
     <React.StrictMode>
       <RouterProvider router={router} />
     </React.StrictMode>
