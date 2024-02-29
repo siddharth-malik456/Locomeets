@@ -20,7 +20,6 @@ export default function SingleService() {
           `http://localhost:3000/services/${params.id}`
         );
         setService(response.data[0]);
-        console.log(response.data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -63,7 +62,7 @@ export default function SingleService() {
         <p className="mt-8 font-semibold text-2xl">About the experience</p>
         <p className="mt-4 font-light">{service?.description}</p>
         <Modal centered opened={opened} onClose={close} size="70%">
-          <Booking />
+          <Booking service={service} />
         </Modal>
         <div className="flex justify-center">
           <button

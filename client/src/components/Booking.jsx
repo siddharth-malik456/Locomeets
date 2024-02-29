@@ -2,13 +2,32 @@ import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { Calendar } from "@mantine/dates";
 import TimeSlot from "./TimeSlot";
-
-export default function Booking() {
+import axios from "axios";
+import { useParams } from "react-router-dom";
+export default function Booking({ service }) {
   const [selected, setSelected] = useState([]);
+  const [selectDate, setSelectDate] = useState();
+  const [selectedSlot, setSelectedSlot] = useState([]);
   const [bookingData, setBookingData] = useState();
+  const bookedSlots = service?.bookings;
+  const params = useParams();
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const bookings = await axios.get(
+        `http://localhost:3000/services/${service._id}`
+      );
+      setBookingData(bookings.data);
+    };
+    console.log("This is ");
+    console.log(selectedSlot);
+    console.log(selectDate);
+    console.log("-------------");
 
-  useEffect(() => {});
+    fetchBookings();
+  }, []);
   const handleSelect = (date) => {
+    console.log(bookingData);
+    setSelectDate(date);
     const isSelected = selected.some((s) => dayjs(date).isSame(s, "date"));
     if (isSelected) {
       setSelected((current) =>
@@ -17,6 +36,23 @@ export default function Booking() {
     } else if (selected.length < 1) {
       setSelected((current) => [...current, date]);
     }
+  };
+  const onSelect = (slot) => {
+    setSelectedSlot(slot);
+  };
+
+  const handleBooking = async () => {
+    const bookingData = {
+      user: service.author._id,
+      service: service._id,
+      date: selectedDate,
+      bookedSlot: selectedSlot,
+    };
+    const request = await axios.post(
+      `http://localhost:3000/booking`,
+      bookingData
+    );
+    console.log(request);
   };
   return (
     <>
@@ -38,19 +74,28 @@ export default function Booking() {
             Choose time slot
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
-            <TimeSlot />
+            {bookingData &&
+              bookedSlots.map((slot, index) => {
+                let disabled = false;
+                console.log(bookingData);
+                bookingData.forEach((booking) => {});
+                return (
+                  <TimeSlot
+                    time={slot}
+                    onSelect={onSelect}
+                    key={index}
+                    disabled={disabled}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mb-8">
+        <button
+          onClick={handleBooking}
+          className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mb-8"
+        >
           Book now
         </button>
       </div>

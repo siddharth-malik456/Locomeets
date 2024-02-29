@@ -38,17 +38,12 @@ router.get("/:id", getBooking, (req, res) => {
 router.post("/", async (req, res) => {
   try {
     console.log(req.body);
-    const { tourist_uid, service, bookedSlot, date, freelancerUUID } = req.body;
-    const touristData = await Tourist.find({ UUID: tourist_uid });
-    console.log(touristData);
-    const touristId = touristData[0]._id;
-
+    const { service, bookedSlot, date, user } = req.body;
     const newBooking = new Booking({
-      tourist: touristId,
+      user,
       service,
       bookedSlot,
       date,
-      freelancerUUID,
     });
     await newBooking.save();
     res.status(201).json(newBooking);
@@ -129,7 +124,7 @@ router.get("/service/:id", async (req, res) => {
 router.get("/date/:date", async (req, res) => {
   try {
     console.log("/service/:date");
-    console.log(req.body.id);
+    console.log(req.params.date);
     const bookings = await Booking.find({ date: req.params.date }); //.populate("tourist service").exec();
     res.json(bookings);
   } catch (err) {

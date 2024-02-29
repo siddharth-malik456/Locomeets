@@ -14,8 +14,6 @@ const trimReview = (userReview) => {
 const ServiceReview = ({ review }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [Ratingvalue, setRatingValue] = useState(4);
-  console.log("HERE IS SERVICE REVIEW");
-  console.log(review);
   const [reviewTrimed, setReviewTrimed] = useState(
     trimReview(review.description)
   );
@@ -37,7 +35,7 @@ const ServiceReview = ({ review }) => {
         </div>
       </Modal>
       {/* ------- */}'
-      <div className="p-8 ">
+      <div className="p-8 w-full">
         <div name="userInfo" className="flex flex-col space-x-4">
           <UserReview review={review} isReader={true} />
           <div name="description_and_rating" className="mt-8">

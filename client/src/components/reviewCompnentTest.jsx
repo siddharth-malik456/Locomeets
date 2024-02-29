@@ -40,7 +40,6 @@ const ReviewCompnentTest = () => {
       const userReviews = await axios.get(
         `http://localhost:3000/review/${params.id}`
       );
-      console.log(userReviews.data[0]);
       const temp = [];
       userReviews.data.map((r) => {
         temp.push({
@@ -72,7 +71,6 @@ const ReviewCompnentTest = () => {
       r.map((re) => {
         if (re.service == params.id) {
           console.log("found");
-          console.log(re);
           setCurrentRevice({
             userFirstName: re.user.firstName,
             userLastName: re.user.lastName,
@@ -202,7 +200,7 @@ const ReviewCompnentTest = () => {
         </div>
       </Drawer>
 
-      <div className="lg:w-1/2">
+      <div className="w-full">
         {reviews.map((review) => {
           return <ServiceReview review={review} />;
         })}
