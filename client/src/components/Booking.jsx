@@ -3,29 +3,72 @@ import { useState, useEffect } from "react";
 import { Calendar } from "@mantine/dates";
 import TimeSlot from "./TimeSlot";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Cookies from "universal-cookie";
 export default function Booking({ service }) {
+  // const curDate = new Date();
+  // const nextDate = curDate.setDate(curDate.getDate() + 1);
   const [selected, setSelected] = useState([]);
   const [selectDate, setSelectDate] = useState();
   const [selectedSlot, setSelectedSlot] = useState([]);
   const [bookingData, setBookingData] = useState();
+  const [bookedSlot, setBookedSlot] = useState();
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState();
+  const navigate = useNavigate();
   const bookedSlots = service?.bookings;
   const params = useParams();
+  const cookies = new Cookies(null, { path: "/" });
+  const auth = cookies.get("auth");
+  const uid = cookies.get("userUid");
   useEffect(() => {
     const fetchBookings = async () => {
+      console.log(service._id);
       const bookings = await axios.get(
-        `http://localhost:3000/services/${service._id}`
+        `http://localhost:3000/services/${params.id}`
       );
       setBookingData(bookings.data);
     };
+    fetchBookings();
+  }, []);
+  useEffect(() => {
+    const func = async () => {
+      const res = await axios.get(
+        `http://localhost:3000/booking/services/${params.id}`
+      );
+      const bookings = res.data;
+      const temp = [];
+      bookings.map((booking) => {
+        const date = new Date(booking.date);
+        const dateString = date.toString();
+        if (temp[dateString]) {
+          temp.push({
+            [dateString]: [temp[dateString], ...booking.bookedSlot],
+          });
+        } else {
+          temp.push({
+            [dateString]: booking.bookedSlot,
+          });
+        }
+      });
+      setBookedSlot(temp);
+      console.log("temp===");
+      console.log(temp);
+    };
+    func();
+  }, []);
+  useEffect(() => {
     console.log("This is ");
     console.log(selectedSlot);
     console.log(selectDate);
     console.log("-------------");
-
-    fetchBookings();
-  }, []);
+  }, [selectDate]);
   const handleSelect = (date) => {
+    const curDate = new Date();
+
+    if (date < curDate) {
+      alert("Invalid date");
+      return;
+    }
     console.log(bookingData);
     setSelectDate(date);
     const isSelected = selected.some((s) => dayjs(date).isSame(s, "date"));
@@ -33,19 +76,28 @@ export default function Booking({ service }) {
       setSelected((current) =>
         current.filter((d) => !dayjs(d).isSame(date, "date"))
       );
-    } else if (selected.length < 1) {
-      setSelected((current) => [...current, date]);
+    } else if (selected.length < 3) {
+      setSelected((current) => [date]);
     }
   };
   const onSelect = (slot) => {
+    console.log(slot);
     setSelectedSlot(slot);
   };
 
   const handleBooking = async () => {
+    const userUid = uid;
+    const getUserURL = "http://localhost:3000/users/uid/" + userUid;
+    console.log(getUserURL);
+    const user = await axios.get(getUserURL);
+    // const serviceId = params.id;
+    console.log("userID");
+    console.log(user.data._id);
+    console.log(selectDate);
     const bookingData = {
-      user: service.author._id,
+      user: user.data._id,
       service: service._id,
-      date: selectedDate,
+      date: selectDate,
       bookedSlot: selectedSlot,
     };
     const request = await axios.post(
@@ -53,6 +105,7 @@ export default function Booking({ service }) {
       bookingData
     );
     console.log(request);
+    //  navigate(0);
   };
   return (
     <>
@@ -75,12 +128,29 @@ export default function Booking({ service }) {
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             {bookingData &&
+              selectDate &&
               bookedSlots.map((slot, index) => {
                 let disabled = false;
-                console.log(bookingData);
-                bookingData.forEach((booking) => {});
+                console.log("Booking DATA -");
+                //console.log(slot);
+                bookedSlot.map((slotsBooked) => {
+                  //2d array
+                  console.log(slotsBooked[selectDate]);
+
+                  slotsBooked[selectDate]?.map((slotBooked) => {
+                    console.log(slotBooked);
+                    console.log(slot);
+                    if (slotBooked[0] == slot[0] && slotBooked[1] == slot[1])
+                      disabled = true;
+                    console.log("disabled = " + disabled);
+                  });
+                });
+
                 return (
                   <TimeSlot
+                    index={index}
+                    setIsSelected={setSelectedTimeSlot}
+                    isSelected={selectedTimeSlot}
                     time={slot}
                     onSelect={onSelect}
                     key={index}

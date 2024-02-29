@@ -76,7 +76,7 @@ router.patch("/:id", getBooking, async (req, res) => {
 });
 
 // -- -- DELETE -- --
-router.delete("/:id", getBooking, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Booking.findByIdAndDelete(req.params.id);
     res.json({ message: "Booking deleted" });
@@ -110,7 +110,7 @@ router.get("/freelancer/:uuid", async (req, res) => {
 });
 
 // -- -- GET ALL BOOKINGS OF A SERVICE -- --
-router.get("/service/:id", async (req, res) => {
+router.get("/services/:id", async (req, res) => {
   try {
     console.log("/service/:id");
     const bookings = await Booking.find({ service: req.params.id }); //.populate("tourist service").exec();

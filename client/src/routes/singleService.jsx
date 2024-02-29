@@ -8,11 +8,14 @@ import Booking from "../components/Booking";
 import ReviewCompnentTest from "../components/reviewCompnentTest";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 export default function SingleService() {
   const [opened, { open, close }] = useDisclosure(false);
   const params = useParams();
   const [service, setService] = useState({});
+  const cookies = new Cookies(null, { path: "/" });
+  const auth = cookies.get("auth");
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -62,7 +65,11 @@ export default function SingleService() {
         <p className="mt-8 font-semibold text-2xl">About the experience</p>
         <p className="mt-4 font-light">{service?.description}</p>
         <Modal centered opened={opened} onClose={close} size="70%">
-          <Booking service={service} />
+          {auth ? (
+            <Booking service={service} />
+          ) : (
+            <div className="min-h-80">Please Login To book</div>
+          )}
         </Modal>
         <div className="flex justify-center">
           <button
