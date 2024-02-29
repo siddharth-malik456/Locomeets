@@ -67,7 +67,7 @@ const UserReview = ({ review, isReader }) => {
         radius="xl"
         size="lg"
       >
-        {review?.profilePicture ? "" : review?.userFirstName[0]}
+        {review?.profilePicture ? "" : review?.userFirstName[0].toUpperCase()}
       </Avatar>
       <div>
         <h2>{review?.userFirstName + " " + review?.userLastName}</h2>

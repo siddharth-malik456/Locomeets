@@ -18,6 +18,9 @@ import Register from "./routes/register";
 import SingleService from "./routes/singleService";
 import ListService from "./routes/listService";
 import Profile from "./routes/profile";
+import Booking from "./components/Booking";
+import BookingRoute from "./routes/bookingRoute";
+import AllServices from "./components/AllServices";
 import Notfound from "./routes/notFound";
 
 const router = createBrowserRouter([
@@ -31,21 +34,31 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "services",
-        element: <Services />,
-      },
-      {
-        path: "services/:id",
+        path: "services/one/:id",
         element: <SingleService />,
       },
+      {
+        path: "services",
+        element: <Services />,
+        children: [
+          {
+            path: ":category",
+            element: <AllServices />,
+          },
+        ],
+      },
+
       {
         path: "profile",
         element: <Profile />,
       },
+
       {
         path: "createService",
         element: <ListService />,
       },
+
+      { path: "booking", element: <BookingRoute /> },
     ],
   },
   {

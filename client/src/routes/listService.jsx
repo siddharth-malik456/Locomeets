@@ -7,9 +7,13 @@ import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import indianStates from "../Utility/json/StateAndCities.json";
 import Cookies from "universal-cookie";
 import axios from "axios";
+import UploadImage from "../Utility/clodinaryImageUpload";
+
+import ImagesInRow from "../components/ReviewsComponents/ImagesInRow";
 
 export default function CreateService() {
   const cookies = new Cookies();
+  const auth = cookies.get("auth");
   const uuid = cookies.get("userUid");
   const categories = [
     { value: "arts", label: "Arts" },
@@ -24,10 +28,12 @@ export default function CreateService() {
     heading: "",
     description: "",
     price: 0,
+    images: [],
   });
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [bookings, setBookings] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
 
   const handleStateChange = (value) => {
     setSelectedState(value);
@@ -68,31 +74,67 @@ export default function CreateService() {
     setFormData({ ...formData, [name]: value });
   };
   const ListService = async () => {
-    const request = await axios.get(`http://localhost:3000/users/uid/${uuid}`);
-    const bookingArray = bookings.map((obj) => [
-      parseInt(obj.startTime),
-      parseInt(obj.endTime),
-    ]);
-    console.log(bookingArray);
-    if (request.data.isTourist) {
-      alert("you can't list service without having a freelancer account");
-    } else {
-      const listData = {
-        state: selectedState,
-        city: selectedCity,
-        price: formData.price,
-        category: selectedCategory,
-        booking: bookingArray,
-        heading: formData.heading,
-        description: formData.description,
-        images: ["nayan", "please", "put", "the", "images"],
-      };
-      const createResponse = await axios.post(
-        `http://localhost:3000/services/${request.data._id}`,
-        listData
+    try {
+      if (!auth) {
+        throw "User not Logged in";
+      }
+      const request = await axios.get(
+        `http://localhost:3000/users/uid/${uuid}`
       );
+      const bookingArray = bookings.map((obj) => [
+        parseInt(obj.startTime),
+        parseInt(obj.endTime),
+      ]);
+      console.log(bookingArray);
+      if (request.data.isTourist) {
+        alert("you can't list service without having a freelancer account");
+        throw "User is not Freelancer";
+      } else {
+        const ImagePromises = formData.images.map(async (image) => {
+          return UploadImage(image);
+        });
+        const ImagesUrls = await Promise.all(ImagePromises);
+
+        const listData = {
+          state: selectedState,
+          city: selectedCity,
+          price: formData.price,
+          category: selectedCategory,
+          booking: bookingArray,
+          heading: formData.heading,
+          description: formData.description,
+          images: ImagesUrls,
+        };
+        const createResponse = await axios.post(
+          `http://localhost:3000/services/${request.data._id}`,
+          listData
+        );
+      }
+      console.log(request.data);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(request.data);
+  };
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData({
+      ...formData,
+      images: [...formData.images, ...files],
+    });
+    Promise.all(
+      files.map((file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      })
+    ).then((previews) => {
+      setPreviewImages([...previewImages, ...previews]);
+      console.log(previewImages);
+    });
+    //  const imageUrls = files.map((file) => URL.createObjectURL(file));
   };
   return (
     <div className="flex flex-col text-[#283618]">
@@ -117,6 +159,33 @@ export default function CreateService() {
             onChange={handleChange}
             className="border border-[#C9D1DA] rounded-md py-1 mb-2 active:outline-none active:border-[#C9D1DA] px-2 outline-none "
           ></textarea>
+          <div className="mb-4">
+            <label htmlFor="images" className="font-semibold">
+              Images
+            </label>
+            <input
+              type="file"
+              id="images"
+              name="images"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+              className="mt-1  p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
+
+            <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              for="file_input"
+            >
+              Upload file
+            </label>
+          </div>
+          <ImagesInRow
+            review={{
+              images: previewImages,
+            }}
+            showProfile={false}
+          />
           <div className="flex justify-between mt-4">
             <div className="flex justify-center items-center gap-16">
               <label className="font-semibold">State</label>
