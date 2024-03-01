@@ -2,7 +2,7 @@ import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import { Link } from "react-router-dom";
 export default function ServiceCard({ service }) {
   return (
-    <div className=" w-72 ">
+    <div className=" w-72  ">
       <Link to={`http://localhost:5173/services/one/${service && service._id}`}>
         <Card shadow="sm" padding="lg" radius="md" withBorder>
           <Card.Section component="a">
@@ -10,7 +10,7 @@ export default function ServiceCard({ service }) {
               <Image
                 src={service && service.images[0]}
                 height={100}
-                className="min-h-28"
+                className="min-h-28 aspect-square "
               />
             </div>
           </Card.Section>
