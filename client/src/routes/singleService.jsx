@@ -4,6 +4,7 @@ import { Carousel } from "@mantine/carousel";
 import ServiceImage from "../components/ServiceImage";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import Booking from "../components/Booking";
 import ReviewCompnentTest from "../components/reviewCompnentTest";
 import axios from "axios";
@@ -15,6 +16,7 @@ export default function SingleService() {
   const params = useParams();
   const [service, setService] = useState({});
   const cookies = new Cookies(null, { path: "/" });
+  const [isAuth, setAuth] = useState(cookies.get("auth") || "false");
   const auth = cookies.get("auth");
   useEffect(() => {
     const fetchServices = async () => {
@@ -72,12 +74,26 @@ export default function SingleService() {
           )}
         </Modal>
         <div className="flex justify-center">
-          <button
-            onClick={open}
-            className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mt-4"
-          >
-            Book now
-          </button>
+          {isAuth == "false" ? (
+            <button
+              onClick={() =>
+                notifications.show({
+                  title: "Login",
+                  message: "Login to book a service",
+                })
+              }
+              className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mt-4"
+            >
+              Book now
+            </button>
+          ) : (
+            <button
+              onClick={open}
+              className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mt-4"
+            >
+              Book now
+            </button>
+          )}
         </div>
         <p className="mt-8 mb-4 font-semibold text-2xl">About the seller</p>
         <div className="flex items-center gap-8">
@@ -93,7 +109,6 @@ export default function SingleService() {
             <p className="text-xl">★ 4.9(30)</p>
           </div>
         </div>
-
         <div className="flex justify-between w-1/2 mt-4 mb-8">
           <div>
             <p className="font-semibold">From</p>

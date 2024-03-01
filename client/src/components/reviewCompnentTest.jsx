@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ServiceReview from "./ReviewsComponents/serviceReview";
 import ReviewEditor from "./ReviewsComponents/reviewEditor";
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
@@ -35,6 +36,7 @@ const ReviewCompnentTest = () => {
   const [openReviewDrawer, setopenReviewDrawer] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const cookies = new Cookies(null, { path: "/" });
+  const [isAuth, setAuth] = useState(cookies.get("auth") || "false");
   const uid = cookies.get("userUid");
   const auth = cookies.get("auth");
   useEffect(() => {
@@ -190,9 +192,23 @@ const ReviewCompnentTest = () => {
         </div>
       ) : (
         <div className="flex justify-center mt-4">
-          <Button className=" m-8" onClick={open}>
-            Write a Review
-          </Button>
+          {isAuth == "false" ? (
+            <Button
+              onClick={() =>
+                notifications.show({
+                  title: "Login",
+                  message: "Login to write a review",
+                })
+              }
+              className=" m-8"
+            >
+              Write a Review
+            </Button>
+          ) : (
+            <Button className=" m-8" onClick={open}>
+              Write a Review
+            </Button>
+          )}
         </div>
       )}
 

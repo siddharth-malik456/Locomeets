@@ -39,50 +39,83 @@ const Profile = () => {
             </div>
           </div>
           <div className="flex mt-20  h-max mr-8  ">
-            <div className="flex flex-col space-y-4">
-              <NavLink
-                to="/profile/userinfo"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "border-blue-300 rounded-lg border h-fit"
-                    : ""
-                }
-              >
-                <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
-                  <p>User Info</p>
-                </div>
-              </NavLink>
-              <NavLink
-                to="/profile/freelancerDashboard"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "border-blue-300 rounded-lg border h-fit"
-                    : ""
-                }
-              >
-                <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
-                  <p>Dashboard</p>
-                </div>
-              </NavLink>
-              <NavLink
-                to="/profile/bookings"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "border-blue-300 rounded-lg border h-fit"
-                    : ""
-                }
-              >
-                <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
-                  <p>Bookings</p>
-                </div>
-              </NavLink>
-            </div>
+            {userData?.isTourist ? (
+              <div className="flex flex-col space-y-4">
+                <NavLink
+                  to="/profile/userinfo"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "border-blue-300 rounded-lg border h-fit"
+                      : ""
+                  }
+                >
+                  <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
+                    <p>User Info</p>
+                  </div>
+                </NavLink>
+                <NavLink
+                  to="/profile/bookings"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "border-blue-300 rounded-lg border h-fit"
+                      : ""
+                  }
+                >
+                  <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
+                    <p>Bookings</p>
+                  </div>
+                </NavLink>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-4">
+                <NavLink
+                  to="/profile/userinfo"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "border-blue-300 rounded-lg border h-fit"
+                      : ""
+                  }
+                >
+                  <div className="bg-[#EAF8F5] rounded-lg p-3 border hover:border-blue-500 ">
+                    <p>User Info</p>
+                  </div>
+                </NavLink>
+                <NavLink
+                  to="/profile/freelancerDashboard"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "border-blue-300 rounded-lg border h-fit"
+                      : ""
+                  }
+                >
+                  <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
+                    <p>Dashboard</p>
+                  </div>
+                </NavLink>
+                <NavLink
+                  to="/profile/bookings"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "border-blue-300 rounded-lg border h-fit"
+                      : ""
+                  }
+                >
+                  <div className="bg-[#EAF8F5] pr-24 rounded-lg p-3 border hover:border-blue-500 ">
+                    <p>Bookings</p>
+                  </div>
+                </NavLink>
+              </div>
+            )}
             <div className="w-[2px] ml-8 mr-16 bg-gray-100 h-96"></div>
           </div>
         </div>

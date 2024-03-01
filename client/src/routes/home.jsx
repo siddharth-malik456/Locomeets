@@ -166,7 +166,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex gap-8">
+      <div className="flex gap-8 mb-8">
         <div className="w-1/4 flex justify-center">
           <Link className="text-2xl font-semibold" to="services/food">
             TRADITIONAL FOOD
@@ -192,6 +192,21 @@ export default function Home() {
           >
             ENRICHING CULTIVATION
           </Link>
+        </div>
+      </div>
+      <hr />
+      <div className="mt-4 pb-4">
+        <div className="flex items-center gap-8 justify-center">
+          <Link
+            to={"/"}
+            style={{ fontFamily: "DM Serif Display" }}
+            className="text-4xl text-center text-white pl-4"
+          >
+            Locomeets{" "}
+          </Link>
+          <span className="text-xl" style={{ fontFamily: "Inter" }}>
+            © Locomeets Ltd. 2024
+          </span>
         </div>
       </div>
     </div>

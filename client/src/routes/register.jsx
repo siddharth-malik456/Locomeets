@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ScrollArea } from "@mantine/core";
 import { Input, Select, Checkbox } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IMaskInput } from "react-imask";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
@@ -60,8 +61,6 @@ export default function Register() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
 
         user.getIdToken().then((token) => {
@@ -70,7 +69,6 @@ export default function Register() {
           cookies.set("auth", "true");
         });
       } else {
-        // window.localStorage.setItem("auth", "false");
         cookies.set("userToken", "");
         cookies.set("userUid", "");
         cookies.set("auth", "false");
@@ -79,22 +77,11 @@ export default function Register() {
       }
     });
   }, []);
-  //--
 
   const countriesData = countries.map((country) => ({
     value: country,
     label: country,
   }));
-  //INPUT FIELDS TO BE SENT
-  // const {
-  //   UUID,
-  //   firstName,`
-  //   lastName,`
-  //   email,`
-  //   nationality,`
-  //   phoneNumber,`
-  //   isTourist,`
-  // } = req.body;
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -135,6 +122,14 @@ export default function Register() {
     await axios.post("http://localhost:3000/users", data);
     naigate("..");
   };
+  const isEmpty =
+    formData.firstName === "" ||
+    formData.lastName === "" ||
+    formData.email === "" ||
+    formData.nationality === "" ||
+    formData.mobileNumber === "" ||
+    formData.bio === "" ||
+    isClient === "";
   return (
     <div className="flex justify-center items-center bg-slate-200 h-screen">
       <div className="flex rounded-md gap-8 border bg-white items-center">
@@ -345,12 +340,26 @@ export default function Register() {
                     </span>
                   </p>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-[#903B4B] mt-4 p-2 rounded-md font-semibold"
-                >
-                  Register
-                </button>
+                {isEmpty ? (
+                  <button
+                    onClick={() =>
+                      notifications.show({
+                        title: "😠😠😠😠😠😠😠 ",
+                        message: "Please fill all the fields",
+                      })
+                    }
+                    className="w-full text-white bg-[#903B4B] mt-4 p-2 rounded-md font-semibold"
+                  >
+                    Register
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full text-white bg-[#903B4B] mt-4 p-2 rounded-md font-semibold"
+                  >
+                    Register
+                  </button>
+                )}
               </form>
             </ScrollArea>
           </div>
