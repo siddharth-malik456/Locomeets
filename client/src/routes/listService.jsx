@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { Input, Select, Checkbox } from "@mantine/core";
-import { IMaskInput } from "react-imask";
-import { Group, Text, rem } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import indianStates from "../Utility/json/StateAndCities.json";
@@ -11,7 +10,7 @@ import UploadImage from "../Utility/clodinaryImageUpload";
 
 import ImagesInRow from "../components/ReviewsComponents/ImagesInRow";
 
-export default function CreateService() {
+export default function ListService() {
   const cookies = new Cookies();
   const auth = cookies.get("auth");
   const uuid = cookies.get("userUid");
@@ -75,9 +74,6 @@ export default function CreateService() {
   };
   const ListService = async () => {
     try {
-      if (!auth) {
-        throw "User not Logged in";
-      }
       const request = await axios.get(
         `http://localhost:3000/users/uid/${uuid}`
       );
@@ -85,7 +81,6 @@ export default function CreateService() {
         parseInt(obj.startTime),
         parseInt(obj.endTime),
       ]);
-      console.log(bookingArray);
       if (request.data.isTourist) {
         alert("you can't list service without having a freelancer account");
         throw "User is not Freelancer";
@@ -136,6 +131,13 @@ export default function CreateService() {
     });
     //  const imageUrls = files.map((file) => URL.createObjectURL(file));
   };
+  const isEmpty =
+    selectedState === "" ||
+    selectedCity === "" ||
+    formData.price === "" ||
+    selectedCategory === "" ||
+    formData.heading === "" ||
+    formData.description === "";
   return (
     <div className="flex justify-center">
       <div className="flex flex-col mt-4  text-[#283618]">
@@ -317,6 +319,29 @@ export default function CreateService() {
           Submit
         </button>
       </div>
+
+
+      {isEmpty ? (
+        <button
+          onClick={() =>
+            notifications.show({
+              title: "😠😠😠😠😠😠😠 ",
+              message: "Please fill all the fields",
+            })
+          }
+          className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
+        >
+          Submit
+        </button>
+      ) : (
+        <button
+          onClick={ListService}
+          className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
+        >
+          Submit
+        </button>
+      )}
+
     </div>
   );
 }

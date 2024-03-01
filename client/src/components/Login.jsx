@@ -167,13 +167,6 @@ export default function Login() {
             Continue with Google
           </button>
           <br />
-          <p className="text-slate-400 text-center mb-4">OR</p>
-          <button
-            className="flex gap-8 px-4 py-2 w-full items-center border border-[#283618] rounded-md bg-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white text-white justify-center mt-4"
-            onClick={() => navigate(-1)}
-          >
-            Go Back
-          </button>
         </div>
       </div>
     </div>

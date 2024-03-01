@@ -5,6 +5,7 @@ import TimeSlot from "./TimeSlot";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { notifications } from "@mantine/notifications";
 export default function Booking({ service }) {
   // const curDate = new Date();
   // const nextDate = curDate.setDate(curDate.getDate() + 1);
@@ -107,6 +108,7 @@ export default function Booking({ service }) {
     console.log(request);
     navigate(0);
   };
+  const isEmpty = selectDate == null || selectedTimeSlot == null;
   return (
     <>
       <h1 className=" text-3xl  font-bold text-center">Booking</h1>
@@ -163,12 +165,26 @@ export default function Booking({ service }) {
         </div>
       </div>
       <div className="flex justify-center">
-        <button
-          onClick={handleBooking}
-          className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mb-8"
-        >
-          Book now
-        </button>
+        {isEmpty ? (
+          <button
+            onClick={() =>
+              notifications.show({
+                title: "😠😠😠😠😠😠😠 ",
+                message: "Please fill all the fields",
+              })
+            }
+            className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mb-8"
+          >
+            Book now
+          </button>
+        ) : (
+          <button
+            onClick={handleBooking}
+            className="border-2 border-[#BC6C25] text-[#BC6C25] hover:bg-[#BC6C25] active:bg-white active:text-[#BC6C25] hover:text-white px-6 py-2 rounded-md mb-8"
+          >
+            Book now
+          </button>
+        )}
       </div>
     </>
   );

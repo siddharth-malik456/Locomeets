@@ -16,7 +16,6 @@ import Home from "./routes/home";
 import Services from "./routes/services";
 import Register from "./routes/register";
 import SingleService from "./routes/singleService";
-import ListService from "./routes/listService";
 import Profile from "./routes/profile";
 import FreelancerDashboard from "./routes/freelancerDashboard";
 import Booking from "./components/Booking";
@@ -26,7 +25,7 @@ import AllServices from "./components/AllServices";
 import UserInfo from "./routes/UserInfo";
 
 import Notfound from "./routes/notFound";
-
+import ListService from "./routes/listService";
 
 const router = createBrowserRouter([
   {

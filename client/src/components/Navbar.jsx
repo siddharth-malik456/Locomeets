@@ -3,7 +3,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import nav_img from "../../public/icons/search_icon.png";
-import CreateService from "../components/CreateService";
 import Login from "./Login";
 import Cookies from "universal-cookie";
 import { getAuth, signOut } from "firebase/auth";
