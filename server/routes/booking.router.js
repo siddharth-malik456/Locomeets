@@ -123,6 +123,22 @@ router.get("/services/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// -- -- GET ALL BOOKINGS User -- --
+router.get("/user/:id", async (req, res) => {
+  try {
+    console.log("/user/" + req.params.id);
+    const bookings = await Booking.find({ user: req.params.id })
+      .populate("user")
+      .populate("service")
+      .exec();
+    console.log(bookings);
+    res.json(bookings);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  }
+});
 // -- -- GET ALL BOOKINGS OF A Date -- --
 
 router.get("/date/:date", async (req, res) => {
