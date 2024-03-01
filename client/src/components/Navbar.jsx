@@ -153,7 +153,7 @@ export default function Navbar() {
             }
             className="hover:text-[#DDA15E] hello"
           >
-            List serviceee
+            List service
           </Link>
         ) : (
           <NavLink

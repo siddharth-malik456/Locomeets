@@ -34,9 +34,12 @@ export default function Home() {
             repeat={Infinity}
           />
           <br />
-          <button className="border-4 px-4 py-2 mt-8  mb-4 font-semibold border-white text-2xl hover:bg-white hover:text-black transition duration-300 active:text-white active:bg-transparent">
+          <Link
+            to={"/services/all"}
+            className="border-4 px-4 py-2 mt-8  mb-4 font-semibold border-white text-2xl hover:bg-white hover:text-black transition duration-300 active:text-white active:bg-transparent"
+          >
             View services
-          </button>
+          </Link>
           <a href="#specific-div" className="scrool-arrow">
             <div className="flex justify-center image-container transition duration-1000 animate-bounce">
               <img
