@@ -21,9 +21,9 @@ const UserInfo = () => {
     func();
   }, []);
   return (
-    <div>
+    <div className="">
       <div className="text-lg text-gray-300 py-8 uppercase">personal</div>
-      <div className="flex flex-col lg:flex-row ">
+      <div className="flex flex-col lg:flex-row">
         <div name="left side  " className="space-y-4">
           <div className="flex space-x-4">
             <div className="space-y-2">

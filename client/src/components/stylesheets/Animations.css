@@ -5,19 +5,19 @@
 }
 
 .hello:hover {
-  color: #bc6c25;
+  color: #dc6801;
   right: 0;
   text-decoration: none;
 }
 
 .hello:hover:after {
-  border-color: #bc6c25;
+  border-color: #dc6801;
   right: 0;
 }
 
 .hello:after {
   border-radius: 1em;
-  border-top: 0.1em solid #bc6c25;
+  border-top: 0.1em solid #dc6801;
   content: "";
   position: absolute;
   right: 100%;

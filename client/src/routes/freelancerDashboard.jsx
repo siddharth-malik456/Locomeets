@@ -1,11 +1,14 @@
 import { Image } from "@mantine/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 const processSlot = (slot) => {
   let f = slot[0];
 
   return `${slot[0]} - ${slot[1]}`;
 };
 const FreelancerDashboard = () => {
+  const [bookedServices1, setBookedServices1] = useState();
+
+  useEffect(() => {}, []);
   const bookedServices = [
     {
       _id: "1",
@@ -51,21 +54,42 @@ const FreelancerDashboard = () => {
   ];
 
   return (
-    <div className=" mx-auto w-full  py-8">
+    <div className="w-full py-8">
       <h1 className="text-3xl font-bold mb-4">Booked Services</h1>
-      <div className="flex space-y-4 flex-col">
+      <div className="flex gap-8 flex-col w-full">
         {bookedServices.map((booking) => (
           <div
             key={booking._id}
-            className="bg-white flex  rounded-lg shadow-md overflow-hidden"
+            className="bg-white flex justify-between rounded-lg shadow-md w-full"
           >
-            <Image
-              src={booking.service.images[0]}
-              alt={booking.service.heading}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <div class="bg-gray-100 p-4 md:p-6 rounded-lg">
+            <div className="w-60 h-60">
+              <Image
+                src={booking.service.images[0]}
+                alt={booking.service.heading}
+                className="w-full h-full object-cover rounded-tl-lg rounded-bl-lg"
+              />
+            </div>
+            <div className="w-1/3 pl-4 pt-4 font-light">
+              <h2 class="text-xl md:text-2xl font-bold mb-3">Booking Info</h2>
+              <p class="text-base md:text-lg mb-2">
+                <span class="font-bold">Service name:</span>{" "}
+                {booking.service.heading}
+              </p>
+              <p class="text-base md:text-lg mb-2">
+                <span class="font-bold">Date:</span>{" "}
+                {new Date(booking.date).toLocaleDateString()}{" "}
+              </p>
+              <p class="text-base md:text-lg mb-2">
+                <span class="font-bold">Category:</span>{" "}
+                {booking.service.category}
+              </p>
+              <p class="text-base md:text-lg mb-2">
+                <span class="font-bold">Slot Reserved:</span>{" "}
+                {processSlot(booking.slotBooked)}
+              </p>
+            </div>
+            <div className="w-1/3 pl-4 pt-4">
+              <div class=" rounded-lg w-full h-full">
                 <h2 class="text-xl md:text-2xl font-bold mb-3">
                   User Information
                 </h2>
@@ -85,21 +109,6 @@ const FreelancerDashboard = () => {
                   {booking.user.phoneNumber}
                 </p>
               </div>
-
-              <p className="text-gray-600">
-                Date: {new Date(booking.date).toLocaleDateString()}
-              </p>
-              <p className="text-gray-600">Price: ${booking.service.price}</p>
-              <p className="text-gray-600">
-                Category: {booking.service.category}
-              </p>
-              <p className="text-gray-600">
-                Slot Reserved:{" "}
-                <span className="p-1 px-2 bg-slate-200 rounded-lg ">
-                  {" "}
-                  {processSlot(booking.slotBooked)}
-                </span>
-              </p>
             </div>
           </div>
         ))}

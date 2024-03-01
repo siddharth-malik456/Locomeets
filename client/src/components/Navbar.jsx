@@ -15,8 +15,8 @@ import "./stylesheets/Animations.css";
 export default function Navbar() {
   let location = useLocation();
   const cookies = new Cookies(null, { path: "/" });
-  const ifAuth = cookies.get("auth");
   const isTourist = cookies.get("isTourist") || "";
+  const [user, setUser] = useState();
   const [isAuth, setAuth] = useState(cookies.get("auth") || "false");
   const [loginOpened, { open: openLogin, close: closeLogin }] =
     useDisclosure(false);
@@ -42,7 +42,7 @@ export default function Navbar() {
   };
   useEffect(() => {
     const fetchUser = async () => {
-      if (isAuth) {
+      if (isAuth == "true" || isAuth == true) {
         const uid = cookies.get("userUid");
         const user = await axios.get(`http://localhost:3000/users/uid/${uid}`);
         if (user.data.isTourist) {
@@ -50,6 +50,7 @@ export default function Navbar() {
         } else {
           cookies.set("isTourist", "false");
         }
+        setUser(user.data);
       }
     };
     fetchUser();
@@ -98,12 +99,26 @@ export default function Navbar() {
         )}
       </div>
       <div className="flex gap-32 justify-center mt-8 text-xl font-light">
-        <Link to="/services" className="hello">
+        <Link to="/services/all" className="hello">
           Browse all
         </Link>
-        <Link to="/dashboard" className="hello">
-          Dashboard
-        </Link>
+        {isAuth == "false" ? (
+          <Link
+            onClick={() =>
+              notifications.show({
+                title: "Login",
+                message: "Login to continue",
+              })
+            }
+            className="hover:text-[#DDA15E] hello"
+          >
+            Profile
+          </Link>
+        ) : (
+          <Link to="/profile/userinfo" className="hover:text-[#DDA15E] hello">
+            Profile
+          </Link>
+        )}
         {isAuth == "false" || isTourist == true ? (
           <Link
             onClick={() =>
