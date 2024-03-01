@@ -26,6 +26,7 @@ import UserInfo from "./routes/UserInfo";
 
 import Notfound from "./routes/notFound";
 import ListService from "./routes/listService";
+import ContactUs from "./routes/contactUs";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
       },
       {
         path: "services/one/:id",
