@@ -113,9 +113,13 @@ router.get("/freelancer/:uuid", async (req, res) => {
 router.get("/services/:id", async (req, res) => {
   try {
     console.log("/service/:id");
-    const bookings = await Booking.find({ service: req.params.id }); //.populate("tourist service").exec();
+    const bookings = await Booking.find({ service: req.params.id })
+      .populate("user")
+      .populate("service")
+      .exec();
     res.json(bookings);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });

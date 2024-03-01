@@ -54,6 +54,18 @@ router.get("/state/:state", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+router.get("/author/:id", async (req, res) => {
+  try {
+    const data = await Service.find({ author: req.params.id })
+      .populate("author")
+      .exec();
+    console.log(data);
+    res.send(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 router.get("/:id", async (req, res) => {
   try {
     const data = await Service.find({ _id: req.params.id })
