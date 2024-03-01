@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal, Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
@@ -13,6 +13,7 @@ import axios from "axios";
 import "./stylesheets/Animations.css";
 export default function Navbar() {
   let location = useLocation();
+  console.log(location.pathname);
   const cookies = new Cookies(null, { path: "/" });
   const isTourist = cookies.get("isTourist") || "";
   const [user, setUser] = useState();
@@ -56,15 +57,25 @@ export default function Navbar() {
   }, [isAuth]);
   return (
     <div
-      className={`text-[#ffffff] pt-4 pb-4 sticky top-0 px-10 bg-black z-10`}
+      className={` pt-4 pb-4 sticky top-0 px-10  ${
+        location.pathname == "/"
+          ? "bg-black text-[#ffffff] "
+          : "bg-white  border-b border-orange-400 drop-shadow-lg text-[#000] "
+      } z-10`}
     >
       <div className="flex w-full justify-center items-center">
         <div className="w-1/3">
-          <div className=" flex gap-2 w-1/3 border-b-2 border-white py-1">
-            <img src={nav_img} className="w-6" alt="" />
+          <div
+            className={` flex gap-2 w-1/3 border-b-2 ${
+              location.pathname == "/"
+                ? "border-white"
+                : "search border-orange-500"
+            }  py-1`}
+          >
+            <img src={nav_img} className="w-6  " alt="" />
             <input
               type="text"
-              className="text-white placeholder:text-white focus:border-none focus:outline-none bg-transparent"
+              className="  focus:border-none focus:outline-none bg-transparent"
               placeholder="Search..."
             />
           </div>
@@ -72,7 +83,7 @@ export default function Navbar() {
         <Link
           to={"/"}
           style={{ fontFamily: "DM Serif Display" }}
-          className="text-4xl w-1/3 text-center text-white"
+          className="text-4xl w-1/3 text-center "
         >
           Loco
           <span className="text-[#DC6801] animate-charcter">meets</span>
@@ -98,25 +109,39 @@ export default function Navbar() {
         )}
       </div>
       <div className="flex gap-32 justify-center mt-8 text-xl font-light">
-        <Link to="/services/all" className="hello">
+        <NavLink
+          to="/services/all"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending hello " : isActive ? " hello active" : "hello"
+          }
+        >
           Browse all
-        </Link>
+        </NavLink>
         {isAuth == "false" ? (
           <Link
+            className="hover:text-[#DDA15E] hello"
             onClick={() =>
               notifications.show({
                 title: "Login",
                 message: "Login to continue",
               })
             }
-            className="hover:text-[#DDA15E] hello"
           >
             Profile
           </Link>
         ) : (
-          <Link to="/profile/userinfo" className="hover:text-[#DDA15E] hello">
+          <NavLink
+            to="/profile/userinfo"
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending hello "
+                : isActive
+                ? " hello active"
+                : "hello"
+            }
+          >
             Profile
-          </Link>
+          </NavLink>
         )}
         {isAuth == "false" || isTourist == true ? (
           <Link
@@ -128,16 +153,30 @@ export default function Navbar() {
             }
             className="hover:text-[#DDA15E] hello"
           >
-            List service
+            List serviceee
           </Link>
         ) : (
-          <Link to="/createService" className="hover:text-[#DDA15E] hello">
+          <NavLink
+            to="/createService"
+            className={({ isActive, isPending }) =>
+              isPending
+                ? "pending hello "
+                : isActive
+                ? " hello active"
+                : "hello"
+            }
+          >
             List service
-          </Link>
+          </NavLink>
         )}
-        <Link to="/contact" className="hover:text-[#DDA15E] hello">
+        <NavLink
+          to="/contact"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending hello " : isActive ? " hello active" : "hello"
+          }
+        >
           Contact
-        </Link>
+        </NavLink>
       </div>
     </div>
   );

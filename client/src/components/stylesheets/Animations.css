@@ -25,9 +25,15 @@
   left: 0;
   transition: right 0.4s cubic-bezier(0, 0.5, 0, 1), border-color 0.4s ease-out;
 }
-
+.active {
+  color: #dc6801;
+  text-decoration: underline;
+}
 .hello:hover:after {
   right: 0;
+}
+.search {
+  filter: invert(100%);
 }
 
 /* .animate-charcter {
