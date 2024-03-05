@@ -312,36 +312,28 @@ export default function ListService() {
             </div>
           </div>
         </div>
-        <button
-          onClick={ListService}
-          className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
-        >
-          Submit
-        </button>
+
+        {isEmpty ? (
+          <button
+            onClick={() =>
+              notifications.show({
+                title: "😠😠😠😠😠😠😠 ",
+                message: "Please fill all the fields",
+              })
+            }
+            className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            onClick={ListService}
+            className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
+          >
+            Submit
+          </button>
+        )}
       </div>
-
-
-      {isEmpty ? (
-        <button
-          onClick={() =>
-            notifications.show({
-              title: "😠😠😠😠😠😠😠 ",
-              message: "Please fill all the fields",
-            })
-          }
-          className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
-        >
-          Submit
-        </button>
-      ) : (
-        <button
-          onClick={ListService}
-          className="bg-[#283618] text-white px-2 py-1 rounded-md border border-[#283618] hover:bg-white hover:border-[#283618] hover:text-[#283618] active:bg-[#283618] active:text-white mt-4"
-        >
-          Submit
-        </button>
-      )}
-
     </div>
   );
 }

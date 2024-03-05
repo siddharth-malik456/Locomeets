@@ -16,7 +16,7 @@ export default function ServiceCard({ service }) {
           </Card.Section>
 
           <Group justify="space-between" mt="md" mb="xs">
-            <Text fw={500}>{service && service.name}</Text>
+            <Text fw={500}>{service && service.heading}</Text>
             <Badge color="blue">₹{service && service.price}</Badge>
           </Group>
 
